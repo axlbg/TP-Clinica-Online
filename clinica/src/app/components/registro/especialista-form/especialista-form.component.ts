@@ -34,8 +34,8 @@ export class EspecialistaFormComponent {
       apellido: ['', Validators.required],
       edad: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
       dni: ['', Validators.required],
-      especialidad: ['', Validators.required], // Nueva especialidad seleccionable
-      otraEspecialidad: [''], // Campo para especialidad personalizada
+      especialidad: ['', Validators.required],
+      otraEspecialidad: ['', Validators.required],
       mail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       imagenPerfil: [null],
