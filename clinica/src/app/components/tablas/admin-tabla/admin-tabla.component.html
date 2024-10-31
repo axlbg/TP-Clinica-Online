@@ -1,0 +1,17 @@
+<div class="titulo"><b>Administradores</b></div>
+<table class="table">
+  <tr>
+    <th>Apellido</th>
+    <th>Nombre</th>
+    <th>Edad</th>
+    <th>DNI</th>
+    <th>Mail</th>
+  </tr>
+  <tr *ngFor="let u of usuarios">
+    <td>{{ u.apellido }}</td>
+    <td>{{ u.nombre }}</td>
+    <td>{{ u.edad }}</td>
+    <td>{{ u.dni }}</td>
+    <td>{{ u.mail }}</td>
+  </tr>
+</table>

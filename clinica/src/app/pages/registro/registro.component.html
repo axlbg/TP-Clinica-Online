@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="botonera">
+    <button (click)="mostrarForm = 1">Registro como paciente</button>
+    <button (click)="mostrarForm = 2">Registro como especialista</button>
+  </div>
+  @if(mostrarForm==1){
+  <app-paciente-form></app-paciente-form>} @else if(mostrarForm==2){
+  <app-especialista-form></app-especialista-form>}
+</div>

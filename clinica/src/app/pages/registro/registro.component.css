@@ -1,0 +1,15 @@
+.container {
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 20px;
+}
+
+.botonera {
+  display: flex;
+  flex-flow: row;
+  gap: 100px;
+}

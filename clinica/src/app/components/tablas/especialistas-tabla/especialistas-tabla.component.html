@@ -1,0 +1,27 @@
+<div class="titulo"><b>Especialistas</b></div>
+<table class="table">
+  <tr>
+    <th>Apellido</th>
+    <th>Nombre</th>
+    <th>Edad</th>
+    <th>DNI</th>
+    <th>Mail</th>
+    <th>Especialidad</th>
+    <th>Acceso</th>
+    <th>Acciones</th>
+  </tr>
+  <tr *ngFor="let u of usuarios">
+    <td>{{ u.apellido }}</td>
+    <td>{{ u.nombre }}</td>
+    <td>{{ u.edad }}</td>
+    <td>{{ u.dni }}</td>
+    <td>{{ u.mail }}</td>
+    <td>{{ u.especialidad }}</td>
+    <td>{{ u.acceso }}</td>
+    <td>
+      <button (click)="updateUserAccess(u.userId, !u.acceso)">
+        Cambiar acceso
+      </button>
+    </td>
+  </tr>
+</table>

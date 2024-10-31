@@ -1,0 +1,128 @@
+@if (isLoading){
+<app-loading></app-loading>
+} @else {
+<div class="form-container">
+  <label>Registro paciente:</label>
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" />
+    <div *ngIf="formulario.controls['nombre'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          (formulario.controls['nombre']?.errors)!['required'] &&
+          formulario.controls['nombre']?.touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="apellido">Apellido:</label>
+    <input id="apellido" formControlName="apellido" type="text" />
+    <div *ngIf="formulario.controls['apellido'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['apellido'].errors!['required'] &&
+          formulario.controls['apellido'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="edad">Edad:</label>
+    <input id="edad" formControlName="edad" type="number" />
+    <div *ngIf="formulario.controls['edad'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['edad'].errors!['required'] &&
+          formulario.controls['edad'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="dni">DNI:</label>
+    <input id="dni" formControlName="dni" type="text" />
+
+    <div *ngIf="formulario.controls['dni'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['dni'].errors!['required'] &&
+          formulario.controls['dni'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="obraSocial">Obra Social:</label>
+    <input id="obraSocial" formControlName="obraSocial" type="text" />
+
+    <div *ngIf="formulario.controls['obraSocial'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['obraSocial'].errors!['required'] &&
+          formulario.controls['obraSocial'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="mail">Mail:</label>
+    <input id="mail" formControlName="mail" type="email" />
+
+    <div *ngIf="formulario.controls['mail'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['mail'].errors!['required'] &&
+          formulario.controls['mail'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+
+    <div *ngIf="formulario.controls['password'].errors != null">
+      <small
+        style="color: #f00"
+        *ngIf="
+          formulario.controls['password'].errors!['required'] &&
+          formulario.controls['password'].touched
+        "
+      >
+        Este campo es requerido
+      </small>
+    </div>
+
+    <label for="imagenPerfil1">Imagen de Perfil 1:</label>
+    <input
+      id="imagenPerfil1"
+      formControlName="imagenPerfil1"
+      type="file"
+      accept="image/*"
+    />
+
+    <label for="imagenPerfil2">Imagen de Perfil 2:</label>
+    <input
+      id="imagenPerfil2"
+      formControlName="imagenPerfil2"
+      type="file"
+      accept="image/*"
+    />
+
+    <button type="submit" [disabled]="formulario.invalid">Enviar</button>
+  </form>
+</div>
+}

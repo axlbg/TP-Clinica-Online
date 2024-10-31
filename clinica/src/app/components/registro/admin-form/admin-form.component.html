@@ -1,0 +1,32 @@
+<div class="form-container">
+  <label>Registro Administrador:</label>
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" formControlName="nombre" type="text" />
+
+    <label for="apellido">Apellido:</label>
+    <input id="apellido" formControlName="apellido" type="text" />
+
+    <label for="edad">Edad:</label>
+    <input id="edad" formControlName="edad" type="number" />
+
+    <label for="dni">DNI:</label>
+    <input id="dni" formControlName="dni" type="text" />
+
+    <label for="mail">Mail:</label>
+    <input id="mail" formControlName="mail" type="email" />
+
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+
+    <label for="imagenPerfil1">Imagen de Perfil:</label>
+    <input
+      id="imagenPerfil"
+      formControlName="imagenPerfil"
+      type="file"
+      accept="image/*"
+    />
+
+    <button type="submit" [disabled]="formulario.invalid">Enviar</button>
+  </form>
+</div>

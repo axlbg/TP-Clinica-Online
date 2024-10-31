@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  gap: 100px;
+  height: 300px;
+}
+.boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fbcaef;
+  height: 200px;
+  width: 450px;
+
+  border: 2px solid #f865b0;
+}
+
+.boton:hover {
+  cursor: pointer;
+  background-color: #e637bf;
+}
