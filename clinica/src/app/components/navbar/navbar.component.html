@@ -3,15 +3,25 @@
     <li>
       <a routerLink="/">Home</a>
     </li>
+    @if(auth.esAdmin()){
+    <li>
+      <a routerLink="/usuarios">Usuarios</a>
+    </li>
+    } @if(!auth.estaLogeado) {
     <li>
       <a routerLink="/login">Login</a>
     </li>
     <li>
       <a routerLink="/registro">Registro</a>
     </li>
-    @if(auth.esAdmin()){
+    } @else {
     <li>
-      <a routerLink="/usuarios">Usuarios</a>
+      <a routerLink="/Home" (click)="deslogear()">Deslogear</a>
+    </li>
+    <li>
+      <a
+        ><i>{{ auth.userName }}</i></a
+      >
     </li>
     }
   </ul>

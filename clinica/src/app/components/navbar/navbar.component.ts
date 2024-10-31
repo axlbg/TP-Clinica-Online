@@ -11,4 +11,8 @@ import { AutentificadorService } from '../../services/autentificador.service';
 })
 export class NavbarComponent {
   constructor(public auth: AutentificadorService) {}
+
+  deslogear() {
+    this.auth.deslogear();
+  }
 }

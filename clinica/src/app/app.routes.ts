@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { adminguardGuard } from './guards/adminguard.guard';
+import { logeadoGuard } from './guards/logeado.guard';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then((c) => c.LoginComponent),
+    canActivate: [logeadoGuard],
   },
   {
     path: 'registro',
@@ -34,6 +36,7 @@ export const routes: Routes = [
       import('./pages/registro/registro.component').then(
         (c) => c.RegistroComponent
       ),
+    canActivate: [logeadoGuard],
   },
   {
     path: 'usuarios',

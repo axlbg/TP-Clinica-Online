@@ -9,6 +9,7 @@ export class AutentificadorService {
   estaLogeado: boolean = false;
   tipoDeUsuario = '';
   accesoEspecialista = false;
+  userName = '';
 
   constructor(
     public firebaseAuth: AngularFireAuth,
@@ -28,6 +29,8 @@ export class AutentificadorService {
         if (this.tipoDeUsuario == 'especialista') {
           this.accesoEspecialista = data.acceso;
         }
+        this.estaLogeado = true;
+        this.userName = data.mail;
       }
 
       return userCredential;
@@ -58,6 +61,8 @@ export class AutentificadorService {
 
   deslogear() {
     this.estaLogeado = false;
+    this.tipoDeUsuario = '';
+    this.accesoEspecialista = false;
     console.log('Deslogeado');
 
     this.firebaseAuth.signOut();
