@@ -22,6 +22,9 @@
       <a
         ><i>{{ auth.userName }}</i></a
       >
+      <small style="color: #f00" *ngIf="!correoVerificado">
+        Falta confirmar el mail
+      </small>
     </li>
     }
   </ul>

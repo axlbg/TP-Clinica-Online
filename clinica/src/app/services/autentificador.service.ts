@@ -79,7 +79,13 @@ export class AutentificadorService {
           const userDoc = this.firestore.collection('usuarios').doc(userId);
           userDoc.set(obj);
         }
-        // this.estaLogeado = true;
+        if (obj.tipo != 'admin') {
+          this.sendVerificationEmail();
+        }
+        this.estaLogeado = true;
+
+        this.userName = obj.mail;
+        this.tipoDeUsuario = obj.tipo;
       })
       .catch((error: any) => {
         throw error;
@@ -128,6 +134,24 @@ export class AutentificadorService {
 
   esAdmin() {
     if (this.tipoDeUsuario == 'admin') return true;
+    return false;
+  }
+
+  async sendVerificationEmail() {
+    const user = await this.firebaseAuth.currentUser;
+    if (user) {
+      await user.sendEmailVerification();
+      console.log(
+        'Se ha enviado un correo de verificación. Verifica tu correo.'
+      );
+    }
+  }
+  async isEmailVerified(): Promise<boolean> {
+    const user = await this.firebaseAuth.currentUser;
+    if (user) {
+      await user.reload();
+      return user.emailVerified;
+    }
     return false;
   }
 }
