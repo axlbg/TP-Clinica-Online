@@ -17,11 +17,6 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     this.correoVerificado = await this.auth.isEmailVerified();
-    if (this.correoVerificado) {
-      console.log('El correo está verificado');
-    } else {
-      console.log('El correo NO está verificado');
-    }
   }
   deslogear() {
     this.auth.deslogear();

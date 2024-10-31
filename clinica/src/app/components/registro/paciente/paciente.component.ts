@@ -9,6 +9,8 @@ import { AutentificadorService } from '../../../services/autentificador.service'
 import { NotificacionService } from '../../../services/notificacion.service';
 import { NgIf } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
+import { Router } from '@angular/router';
+import { Storage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-paciente-form',
@@ -26,8 +28,10 @@ export class PacienteComponent {
   constructor(
     private fb: FormBuilder,
     private registro: AutentificadorService,
-    private notificar: NotificacionService
-  ) {
+    private notificar: NotificacionService,
+    private ruteador: Router
+  ) //private storage: Storage
+  {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -61,6 +65,7 @@ export class PacienteComponent {
     try {
       await this.registro.registrarPaciente(objUsuario);
       this.notificar.exito('Registrado correctamente.');
+      this.ruteador.navigate(['/home']);
     } catch (error: any) {
       this.notificar.error(this.createMessage(error.code));
     } finally {

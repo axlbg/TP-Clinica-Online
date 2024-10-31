@@ -10,6 +10,7 @@ import { AutentificadorService } from '../../../services/autentificador.service'
 import { NotificacionService } from '../../../services/notificacion.service';
 import { StorageService } from '../../../services/storage.service';
 import { LoadingComponent } from '../../loading/loading.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-especialista-form',
@@ -27,7 +28,8 @@ export class EspecialistaFormComponent {
   constructor(
     private fb: FormBuilder,
     private registro: AutentificadorService,
-    private notificar: NotificacionService
+    private notificar: NotificacionService,
+    private ruteador: Router
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -66,6 +68,7 @@ export class EspecialistaFormComponent {
     try {
       await this.registro.registrarEspecialista(objUsuario);
       this.notificar.exito('Registrado correctamente.');
+      this.ruteador.navigate(['/home']);
     } catch (error: any) {
       this.notificar.error(this.createMessage(error.code));
     } finally {

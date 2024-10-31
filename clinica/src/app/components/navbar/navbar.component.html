@@ -25,6 +25,12 @@
       <small style="color: #f00" *ngIf="!correoVerificado">
         Falta confirmar el mail
       </small>
+      <small
+        style="color: #f00"
+        *ngIf="auth.tipoDeUsuario == 'especialista' && !auth.accesoEspecialista"
+      >
+        Falta aprobar especialista
+      </small>
     </li>
     }
   </ul>
