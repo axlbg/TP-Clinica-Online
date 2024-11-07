@@ -6,21 +6,15 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
+    provideStorage(() => getStorage()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'guzman-clinica',
-        appId: '1:685287252029:web:59a836255a841f1b470a54',
-        storageBucket: 'guzman-clinica.appspot.com',
-        apiKey: 'AIzaSyDGjewiQfQP2z4DrUMmwqID6ULht27TZL8',
-        authDomain: 'guzman-clinica.firebaseapp.com',
-        messagingSenderId: '685287252029',
-      })
-    ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     {
@@ -34,5 +28,24 @@ export const appConfig: ApplicationConfig = {
         messagingSenderId: '685287252029',
       },
     },
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'guzman-clinica',
+        appId: '1:685287252029:web:59a836255a841f1b470a54',
+        storageBucket: 'guzman-clinica.appspot.com',
+        apiKey: 'AIzaSyDGjewiQfQP2z4DrUMmwqID6ULht27TZL8',
+        authDomain: 'guzman-clinica.firebaseapp.com',
+        messagingSenderId: '685287252029',
+      })
+    ),
   ],
 };
+
+/* "* Botones de Acceso rápido
+ - Debe ser botones favbutton. Este debe tener una animación al mostrar las opciones de usuarios
+ - Debe tener la imagen de perfil del usuario
+ - Debe estar en la esquina inferior izquierda de la pantalla login. 6 usuarios. (3 pacientes, 2 especialistas, 1 admin)
+-------------------------------
+* Registro de usuarios
+ - Al ingresar a la página solo se deben ver 2 botones con la imagen que represente un paciente o especialista, según esa elección mostrará el formulario correspondiente.
+ - Estas imagenes tienen que estar en botones rectangulares uno al abajo del otro. Al hacer click el formulario debe aparecer con una aminación. */

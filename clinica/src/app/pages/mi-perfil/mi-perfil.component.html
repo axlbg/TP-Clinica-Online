@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="perfil-card">
+    <!-- Tipo de usuario centrado en la parte superior -->
+    <div class="perfil-tipo-usuario">
+      {{ user.tipo | capitalizarPrimerLetra }}
+    </div>
+
+    <!-- Línea divisora -->
+    <hr class="perfil-divider" />
+
+    <!-- Imagen de perfil y datos de usuario -->
+    <div class="perfil-content">
+      <img [src]="user.imagen" alt="Imagen de perfil" class="perfil-imagen" />
+      <div class="perfil-info">
+        <h3 class="perfil-nombre">{{ user.nombre }} {{ user.apellido }}</h3>
+        <p><strong>DNI:</strong> {{ user.dni }}</p>
+        <p><strong>Edad:</strong> {{ user.edad }} años</p>
+        <p><strong>Email:</strong> {{ user.mail }}</p>
+        @if(user.tipo=='paciente'){
+        <p><strong>Obra Social:</strong> {{ user.obraSocial }}</p>
+        } @else if (user.tipo=='especialista') {
+        <p>
+          <strong>Especialidades:</strong>
+          <span *ngFor="let e of user.especialidad; let last = last">
+            {{ e }}<span *ngIf="!last">, </span>
+          </span>
+        </p>
+
+        <p class="a" (click)="clickAdminisitrarHorario()">
+          <u>Administrar disponibilidad horaria</u>
+        </p>
+        }
+      </div>
+    </div>
+  </div>
+  @if(showHorarios){
+  <app-disponibilidad-especialista></app-disponibilidad-especialista>
+  }
+</div>

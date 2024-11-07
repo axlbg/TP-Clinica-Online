@@ -1,0 +1,15 @@
+<div class="dias-container">
+  <div *ngFor="let dia of proximosDiasConHorarios" class="dia-card">
+    <h4>{{ dia.fecha | date : "fullDate" }}</h4>
+
+    <div class="horarios-lista">
+      <button
+        *ngFor="let horario of dia.horarios"
+        class="horario-btn"
+        (click)="seleccionarTurno(dia.fecha, horario)"
+      >
+        {{ horario }}
+      </button>
+    </div>
+  </div>
+</div>

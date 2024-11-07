@@ -1,0 +1,20 @@
+<div class="turnos-container">
+  <h3>Seleccionar disponibilidad horaria</h3>
+
+  <div class="dias-container">
+    <div *ngFor="let dia of semana" class="dia-card">
+      <h4>{{ dia | capitalizarPrimerLetra }}</h4>
+
+      <div class="horarios-lista">
+        <button
+          *ngFor="let horario of horariosDeAtencion[dia]"
+          class="horario-btn"
+          (click)="clickTurno(dia, horario)"
+          [ngClass]="{ seleccionado: estaSeleccionado(dia, horario) }"
+        >
+          {{ horario }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

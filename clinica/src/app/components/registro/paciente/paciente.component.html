@@ -77,7 +77,7 @@
     </div>
 
     <label for="mail">Mail:</label>
-    <input id="mail" formControlName="mail" type="email" />
+    <input id="mail" formControlName="mail" type="email" autocomplete="email" />
 
     <div *ngIf="formulario.controls['mail'].errors != null">
       <small
@@ -92,7 +92,12 @@
     </div>
 
     <label for="password">Password:</label>
-    <input id="password" formControlName="password" type="password" />
+    <input
+      id="password"
+      formControlName="password"
+      type="password"
+      autocomplete="new-password"
+    />
 
     <div *ngIf="formulario.controls['password'].errors != null">
       <small
@@ -107,20 +112,27 @@
     </div>
 
     <label for="imagenPerfil1">Imagen de Perfil 1:</label>
-    <input
-      id="imagenPerfil1"
-      formControlName="imagenPerfil1"
-      type="file"
-      accept="image/*"
-    />
+    <input id="imagenPerfil1" type="file" (change)="onFileChange($event)" />
+
+    <div *ngIf="formulario.get('imagenPerfil1')?.hasError('requiredFile')">
+      <small
+        style="color: #f00"
+        *ngIf="formulario.controls['imagenPerfil1'].touched"
+      >
+        Debes cargar una imagen
+      </small>
+    </div>
 
     <label for="imagenPerfil2">Imagen de Perfil 2:</label>
-    <input
-      id="imagenPerfil2"
-      formControlName="imagenPerfil2"
-      type="file"
-      accept="image/*"
-    />
+    <input id="imagenPerfil2" type="file" (change)="onFileChange2($event)" />
+    <div *ngIf="formulario.get('imagenPerfil2')?.hasError('requiredFile')">
+      <small
+        style="color: #f00"
+        *ngIf="formulario.controls['imagenPerfil2'].touched"
+      >
+        Debes cargar una imagen
+      </small>
+    </div>
 
     <button type="submit" [disabled]="formulario.invalid">Enviar</button>
   </form>

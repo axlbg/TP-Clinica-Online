@@ -46,4 +46,31 @@ export const routes: Routes = [
       ),
     canActivate: [adminguardGuard],
   },
+  {
+    path: 'misturnos',
+    loadComponent: () =>
+      import('./pages/mis-turnos/mis-turnos.component').then(
+        (c) => c.MisTurnosComponent
+      ),
+  },
+  {
+    path: 'turnos',
+    loadComponent: () =>
+      import('./pages/turnos/turnos.component').then((c) => c.TurnosComponent),
+    canActivate: [adminguardGuard],
+  },
+  {
+    path: 'solicitarturno',
+    loadComponent: () =>
+      import('./pages/solicitar-turno/solicitar-turno.component').then(
+        (c) => c.SolicitarTurnoComponent
+      ),
+  },
+  {
+    path: 'perfil',
+    loadComponent: () =>
+      import('./pages/mi-perfil/mi-perfil.component').then(
+        (c) => c.MiPerfilComponent
+      ),
+  },
 ];

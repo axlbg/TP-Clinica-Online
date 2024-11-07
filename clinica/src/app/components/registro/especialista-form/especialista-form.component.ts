@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { AutentificadorService } from '../../../services/autentificador.service';
@@ -29,7 +31,8 @@ export class EspecialistaFormComponent {
     private fb: FormBuilder,
     private registro: AutentificadorService,
     private notificar: NotificacionService,
-    private ruteador: Router
+    private ruteador: Router,
+    private storage: StorageService
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -37,29 +40,56 @@ export class EspecialistaFormComponent {
       edad: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
       dni: ['', Validators.required],
       especialidad: ['', Validators.required],
-      otraEspecialidad: ['', Validators.required],
+      otraEspecialidad: [''],
       mail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      imagenPerfil: [null],
+      imagenPerfil: [null, [Validators.required, this.fileValidator()]],
     });
   }
 
-  onSubmit() {
+  fileValidator(): (control: AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const file = control.value;
+      return file ? null : { requiredFile: true };
+    };
+  }
+  async onSubmit() {
     if (this.formulario.valid) {
-      const datosFormulario = { ...this.formulario.value };
-      if (datosFormulario.especialidad === 'Otra') {
-        datosFormulario.especialidad = datosFormulario.otraEspecialidad;
+      this.isLoading = true;
+      try {
+        const archivoImagen1 = this.formulario.get('imagenPerfil')
+          ?.value as File;
+
+        let urlImagen1 = '';
+        if (archivoImagen1) {
+          urlImagen1 = await this.storage.subir(
+            archivoImagen1,
+            `${this.formulario.get('nombre')?.value}.${
+              this.formulario.get('dni')?.value
+            }.1`
+          );
+        }
+
+        const datosFormulario = { ...this.formulario.value };
+        if (datosFormulario.especialidad === 'Otra') {
+          datosFormulario.especialidad = datosFormulario.otraEspecialidad;
+        }
+        this.Registro({
+          mail: this.formulario.get('mail')?.value,
+          password: this.formulario.get('password')?.value,
+          nombre: this.formulario.get('nombre')?.value,
+          apellido: this.formulario.get('apellido')?.value,
+          edad: this.formulario.get('edad')?.value,
+          dni: this.formulario.get('dni')?.value,
+          especialidad: [datosFormulario.especialidad],
+
+          imagen: urlImagen1,
+        });
+      } catch (error) {
+        console.error('Error al subir imágenes o registrar datos:', error);
+      } finally {
+        this.isLoading = false;
       }
-      this.Registro({
-        mail: this.formulario.get('mail')?.value,
-        password: this.formulario.get('password')?.value,
-        nombre: this.formulario.get('nombre')?.value,
-        apellido: this.formulario.get('apellido')?.value,
-        edad: this.formulario.get('edad')?.value,
-        dni: this.formulario.get('dni')?.value,
-        especialidad: this.formulario.get('especialidad')?.value,
-        //imagen: this.storage.subir(this.imagen),
-      });
     }
   }
 
@@ -101,12 +131,10 @@ export class EspecialistaFormComponent {
     return message;
   }
 
-  nuevaImagenCargada($event: any) {
-    const file = $event.target.files[0];
-    const imagen = new Blob([file], {
-      type: file.type,
-    });
-    this.imagen = imagen;
-    //this.storage.subir(imagen);
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.[0]) {
+      this.formulario.patchValue({ imagenPerfil: input.files[0] });
+    }
   }
 }

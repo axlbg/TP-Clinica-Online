@@ -13,9 +13,9 @@ import {
 export class StorageService {
   constructor(private fs: Firestore, private storage: Storage) {}
 
-  async subir(imagen: Blob) {
+  async subir(imagen: Blob, nombre: string) {
     const col = collection(this.fs, 'empleados');
-    const storageRef = ref(this.storage, 'imagenesDePerfil/' + 'imagen.jpg');
+    const storageRef = ref(this.storage, 'imagenesDePerfil/' + nombre + '.jpg');
 
     await uploadBytes(storageRef, imagen);
 

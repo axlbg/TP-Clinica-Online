@@ -10,14 +10,26 @@ export class AutentificadorService {
   tipoDeUsuario = '';
   accesoEspecialista = false;
   userName = '';
+  emailVerificado = false;
+  objUsuario = {};
 
   constructor(
     public firebaseAuth: AngularFireAuth,
     private firestore: AngularFirestore
   ) {}
 
+  resetDefault() {
+    this.estaLogeado = false;
+    this.tipoDeUsuario = '';
+    this.accesoEspecialista = false;
+    this.userName = '';
+    this.emailVerificado = false;
+    this.objUsuario = {};
+  }
+
   async logear(email: string, password: string) {
     try {
+      this.resetDefault();
       const userCredential = await this.firebaseAuth.signInWithEmailAndPassword(
         email,
         password
@@ -26,11 +38,15 @@ export class AutentificadorService {
       if (userId) {
         const data = await this.obtenerDatosUsuario(userId);
         this.tipoDeUsuario = data.tipo;
-        if (this.tipoDeUsuario == 'especialista') {
+        this.objUsuario = data;
+        if (this.tipoDeUsuario === 'especialista') {
           this.accesoEspecialista = data.acceso;
         }
+        if (await this.isEmailVerified()) {
+          this.emailVerificado = true;
+        }
         this.estaLogeado = true;
-        this.userName = data.mail;
+        this.userName = data.nombre + ' ' + data.apellido;
       }
 
       return userCredential;
@@ -60,9 +76,7 @@ export class AutentificadorService {
   }
 
   deslogear() {
-    this.estaLogeado = false;
-    this.tipoDeUsuario = '';
-    this.accesoEspecialista = false;
+    this.resetDefault();
     console.log('Deslogeado');
 
     this.firebaseAuth.signOut();
@@ -79,13 +93,14 @@ export class AutentificadorService {
           const userDoc = this.firestore.collection('usuarios').doc(userId);
           userDoc.set(obj);
         }
-        if (obj.tipo != 'admin') {
+        if (obj.tipo !== 'admin') {
           this.sendVerificationEmail();
         }
         this.estaLogeado = true;
 
-        this.userName = obj.mail;
         this.tipoDeUsuario = obj.tipo;
+        this.objUsuario = obj;
+        this.userName = obj.nombre + ' ' + obj.apellido;
       })
       .catch((error: any) => {
         throw error;
@@ -101,6 +116,8 @@ export class AutentificadorService {
       dni: p.dni,
       obraSocial: p.obraSocial,
       mail: p.mail,
+      imagen: p.imagen,
+      imagen2: p.imagen2,
     };
     this.registrarUsuario(p.mail, p.password, obj);
   }
@@ -115,6 +132,15 @@ export class AutentificadorService {
       especialidad: p.especialidad,
       mail: p.mail,
       acceso: false,
+      imagen: p.imagen,
+      disponibilidad: {
+        lunes: [],
+        martes: [],
+        miércoles: [],
+        jueves: [],
+        viernes: [],
+        sábado: [],
+      },
     };
     this.registrarUsuario(p.mail, p.password, obj);
   }
@@ -126,14 +152,16 @@ export class AutentificadorService {
       apellido: p.apellido,
       edad: p.edad,
       dni: p.dni,
-      obraSocial: p.obraSocial,
       mail: p.mail,
+      imagen: p.imagen,
     };
     this.registrarUsuario(p.mail, p.password, obj);
   }
 
   esAdmin() {
-    if (this.tipoDeUsuario == 'admin') return true;
+    if (this.tipoDeUsuario === 'admin') {
+      return true;
+    }
     return false;
   }
 
@@ -146,6 +174,7 @@ export class AutentificadorService {
       );
     }
   }
+
   async isEmailVerified(): Promise<boolean> {
     const user = await this.firebaseAuth.currentUser;
     if (user) {

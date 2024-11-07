@@ -10,14 +10,11 @@ import { NgIf } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   correoVerificado: boolean = false;
 
   constructor(public auth: AutentificadorService) {}
 
-  async ngOnInit() {
-    this.correoVerificado = await this.auth.isEmailVerified();
-  }
   deslogear() {
     this.auth.deslogear();
   }

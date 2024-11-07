@@ -10,6 +10,7 @@
       formControlName="mail"
       type="email"
       placeholder="Ingrese su correo"
+      autocomplete="email"
     />
 
     <div *ngIf="loginForm.controls['mail'].errors != null">
@@ -29,12 +30,32 @@
       formControlName="password"
       type="password"
       placeholder="Ingrese su contraseña"
+      autocomplete="current-password"
     />
 
-    <button type="submit" [disabled]="loginForm.invalid">Iniciar sesión</button>
+    <button class="btn-submit" type="submit" [disabled]="loginForm.invalid">
+      Iniciar sesión
+    </button>
   </form>
-  <button (click)="accesoRapido(0)">Acceso paciente</button>
-  <button (click)="accesoRapido(1)">Acceso especialista</button>
-  <button (click)="accesoRapido(2)">Acceso admin</button>
 </div>
+<div class="fav-container">
+  <button class="fav-btn" (click)="toggleMenu()">fav</button>
+
+  <div [@slideIn]="isSlideIn ? 'show' : 'hide'">
+    <div class="user-menu" *ngIf="menuVisible">
+      <div
+        *ngFor="let user of users"
+        class="user-item"
+        (click)="onUserClick(user)"
+      >
+        <img [src]="user.imagen" alt="Foto de usuario" class="user-photo" />
+        <span class="user-name">{{ user.name }}</span>
+        <small
+          ><i>{{ user.tipo }}</i></small
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
 }

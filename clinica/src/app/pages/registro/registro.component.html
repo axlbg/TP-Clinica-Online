@@ -1,9 +1,17 @@
 <div class="container">
   <div class="botonera">
-    <button (click)="mostrarForm = 1">Registro como paciente</button>
-    <button (click)="mostrarForm = 2">Registro como especialista</button>
+    <div class="boton" (click)="mostrarForm = 1; isRotate = !isRotate">
+      <img [src]="imgPaciente" />
+    </div>
+    <div class="boton" (click)="mostrarForm = 2; isRotate = !isRotate">
+      <img [src]="imgEspecialista" />
+    </div>
   </div>
-  @if(mostrarForm==1){
-  <app-paciente-form></app-paciente-form>} @else if(mostrarForm==2){
-  <app-especialista-form></app-especialista-form>}
+  <div [@rotate]="isRotate ? 'rotate' : 'normal'" class="box power-up">
+    @if(mostrarForm==1){
+    <app-paciente-form></app-paciente-form>
+    } @else if(mostrarForm==2){
+    <app-especialista-form></app-especialista-form>
+    }
+  </div>
 </div>

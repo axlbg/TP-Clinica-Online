@@ -1,0 +1,75 @@
+:host {
+  position: fixed;
+  transform: translate(-60%, 10%);
+  z-index: 9999; /* Asegura que el componente esté por encima de otros elementos */
+  padding: 5px; /* Espaciado dentro del componente */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Opcional: sombra para que se destaque */
+  width: 750px;
+}
+
+.dias-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 720px; /* Ancho máximo del contenedor */
+  max-height: 400px; /* Limita la altura total a dos filas aproximadamente */
+  overflow-y: auto; /* Habilita scroll cuando hay más de dos filas */
+  background-color: #f865b0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.dia-card {
+  flex: 1 1 180px;
+  max-width: 180px; /* Ancho máximo para que todas las tarjetas sean iguales */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 180px; /* Altura fija para uniformidad */
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dia-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.horarios-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: center;
+  max-height: 100px;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.horario-btn {
+  width: 60px;
+  padding: 0.25rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.horario-btn:hover {
+  background-color: #0056b3;
+}
+
+.horario-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px #007bff;
+}

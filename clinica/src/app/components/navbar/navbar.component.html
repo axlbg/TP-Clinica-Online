@@ -7,6 +7,9 @@
     <li>
       <a routerLink="/usuarios">Usuarios</a>
     </li>
+    <li>
+      <a routerLink="/turnos">Turnos</a>
+    </li>
     } @if(!auth.estaLogeado) {
     <li>
       <a routerLink="/login">Login</a>
@@ -14,15 +17,28 @@
     <li>
       <a routerLink="/registro">Registro</a>
     </li>
-    } @else {
+    } @else { @if(auth.tipoDeUsuario!='especialista'){
     <li>
-      <a routerLink="/Home" (click)="deslogear()">Deslogear</a>
+      <a routerLink="/solicitarturno">Solicitar Turno</a>
+    </li>
+    }
+    <li>
+      <a routerLink="/misturnos">Mis Turnos</a>
+    </li>
+    <li>
+      <a routerLink="/perfil">Mi Perfil</a>
+    </li>
+    <li>
+      <a routerLink="/home" (click)="deslogear()">Deslogear</a>
     </li>
     <li>
       <a
         ><i>{{ auth.userName }}</i></a
       >
-      <small style="color: #f00" *ngIf="!correoVerificado">
+      <small
+        style="color: #f00"
+        *ngIf="!auth.emailVerificado && !auth.esAdmin()"
+      >
         Falta confirmar el mail
       </small>
       <small

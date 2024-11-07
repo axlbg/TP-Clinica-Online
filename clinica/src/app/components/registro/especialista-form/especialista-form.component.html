@@ -94,7 +94,7 @@
     </div>
 
     <label for="mail">Mail:</label>
-    <input id="mail" formControlName="mail" type="email" />
+    <input id="mail" formControlName="mail" type="email" autocomplete="email" />
 
     <div *ngIf="formulario.controls['mail'].errors != null">
       <small
@@ -109,7 +109,12 @@
     </div>
 
     <label for="password">Password:</label>
-    <input id="password" formControlName="password" type="password" />
+    <input
+      id="password"
+      formControlName="password"
+      type="password"
+      autocomplete="new-password"
+    />
 
     <div *ngIf="formulario.controls['password'].errors != null">
       <small
@@ -126,10 +131,9 @@
     <label for="imagenPerfil">Imagen de Perfil:</label>
     <input
       id="imagenPerfil"
-      formControlName="imagenPerfil"
       type="file"
       accept="image/*"
-      onchange="nuevaImagenCargada($event)"
+      (change)="onFileChange($event)"
     />
 
     <button type="submit" [disabled]="formulario.invalid">Enviar</button>

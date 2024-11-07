@@ -1,0 +1,49 @@
+<div class="form-container">
+  <form [formGroup]="turnoForm">
+    <!-- Selección de Especialidad -->
+    <label for="especialidad">Especialidad</label>
+    <select
+      id="especialidad"
+      formControlName="especialidad"
+      (change)="onEspecialidadChange()"
+    >
+      <option
+        *ngFor="let especialidad of especialidades"
+        [value]="especialidad"
+      >
+        {{ especialidad }}
+      </option>
+    </select>
+
+    <label for="especialista">Especialista</label>
+    <select id="especialista" formControlName="especialista">
+      @if (turnoForm.controls['especialidad'].touched){
+      <option
+        *ngFor="let especialista of usuarios"
+        [value]="especialista.userId"
+      >
+        {{ especialista.nombre }} {{ especialista.apellido }}
+      </option>
+      } @else {
+      <option>Seleccione especialidad</option>
+      }
+    </select>
+
+    <!-- Selección de Día -->
+    <label for="dia"
+      >Día@if(diaYhorario!=null){<span>: {{ fecha | date : "fullDate" }}</span
+      >}</label
+    >
+    <button (click)="clickElegirDia()">Elegir día y horario</button>
+    @if(showDiaYHorario){
+    <app-dia-yhorario
+      (diaYHorario)="obtenerDiaYHorario($event)"
+      [disponibilidad]="disponibilidad"
+    ></app-dia-yhorario>
+    }
+
+    <button type="submit" [disabled]="turnoForm.invalid">
+      Confirmar Turno
+    </button>
+  </form>
+</div>

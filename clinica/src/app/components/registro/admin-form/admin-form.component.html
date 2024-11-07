@@ -1,3 +1,6 @@
+@if (isLoading){
+<app-loading></app-loading>
+} @else {
 <div class="form-container">
   <label>Registro Administrador:</label>
   <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
@@ -19,14 +22,10 @@
     <label for="password">Password:</label>
     <input id="password" formControlName="password" type="password" />
 
-    <label for="imagenPerfil1">Imagen de Perfil:</label>
-    <input
-      id="imagenPerfil"
-      formControlName="imagenPerfil"
-      type="file"
-      accept="image/*"
-    />
+    <label for="imagenPerfil">Imagen de Perfil:</label>
+    <input id="imagenPerfil" type="file" (change)="onFileChange($event)" />
 
     <button type="submit" [disabled]="formulario.invalid">Enviar</button>
   </form>
 </div>
+}

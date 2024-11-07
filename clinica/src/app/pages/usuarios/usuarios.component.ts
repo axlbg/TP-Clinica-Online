@@ -28,7 +28,7 @@ export class UsuariosComponent {
   constructor(private firestore: AngularFirestore) {}
 
   traerPacientes() {
-    this.usuarios = this.traerUsuarios('paciente').subscribe((usuarios) => {
+    this.traerUsuarios('paciente').subscribe((usuarios) => {
       if (usuarios !== null) {
         this.usuarios = usuarios;
       }
@@ -37,7 +37,7 @@ export class UsuariosComponent {
   }
 
   traerEspecialistas() {
-    this.usuarios = this.traerUsuarios('especialista').subscribe((usuarios) => {
+    this.traerUsuarios('especialista').subscribe((usuarios) => {
       if (usuarios !== null) {
         this.usuarios = usuarios;
       }
@@ -46,7 +46,7 @@ export class UsuariosComponent {
   }
 
   traerAdmin() {
-    this.usuarios = this.traerUsuarios('admin').subscribe((usuarios) => {
+    this.traerUsuarios('admin').subscribe((usuarios) => {
       if (usuarios !== null) {
         this.usuarios = usuarios;
       }
