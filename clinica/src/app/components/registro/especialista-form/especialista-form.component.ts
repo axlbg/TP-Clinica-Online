@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
 })
 export class EspecialistaFormComponent {
   formulario: FormGroup;
-  especialidades = ['Cardiólogo', 'Neurólogo', 'Hematólogo'];
+  especialidades = ['Cardiólogo', 'Neurólogo', 'Hematólogo', 'Odontólogo'];
   imagen: any;
   isLoading = false;
 

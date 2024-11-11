@@ -1,12 +1,6 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { DiaYHorarioComponent } from '../dia-yhorario/dia-yhorario.component';
 
 type DiaSemana =
@@ -20,19 +14,19 @@ type DiaSemana =
 @Component({
   selector: 'app-solicitar-form',
   standalone: true,
-  imports: [
-    NgFor,
-    ReactiveFormsModule,
-    NgIf,
-    DiaYHorarioComponent,
-    CommonModule,
-  ],
+  imports: [NgFor, NgIf, DiaYHorarioComponent, CommonModule],
   templateUrl: './solicitar-form.component.html',
   styleUrl: './solicitar-form.component.css',
 })
 export class SolicitarFormComponent {
-  turnoForm: FormGroup;
-  showDiaYHorario = false;
+  especialidadesDefault = [
+    'Neurólogo',
+    'Cardiólogo',
+    'Hematólogo',
+    'Odontólogo',
+  ];
+
+  showForm = 0;
   diaYhorario = null;
   fecha: any;
   disponibilidad: { [key in DiaSemana]: string[] } = {
@@ -40,12 +34,29 @@ export class SolicitarFormComponent {
     martes: ['08:00', '09:00', '10:00', '11:00', '12:00'],
     miércoles: ['08:00'],
     jueves: ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00'],
-    viernes: ['08:00'],
+    viernes: ['09:00'],
     sábado: ['08:00', '09:00'],
   };
+  especialidades: any = [];
+  usuarios: any = [];
 
-  onEspecialidadChange(): void {
-    const especialidadSeleccionada = this.turnoForm.get('especialidad')?.value;
+  @Output() especialidadSeleccionada = new EventEmitter<string>();
+  @Output() especialistaSeleccionado = new EventEmitter<string>();
+
+  constructor(private firestore: AngularFirestore) {
+    this.filtrarEspecialidades();
+    this.showForm = 0;
+  }
+
+  obtenerImg(especialidad: string) {
+    let ruta = '/especialidades/';
+    if (this.especialidadesDefault.includes(especialidad))
+      ruta += especialidad + '.jpg';
+    else ruta += 'generico.jpg';
+    return ruta;
+  }
+
+  onClickEspecialidad(especialidadSeleccionada: string): void {
     this.traerEspecialistasPorEspecialidad(especialidadSeleccionada).subscribe(
       (usuarios) => {
         if (usuarios != null) {
@@ -53,17 +64,14 @@ export class SolicitarFormComponent {
         }
       }
     );
+    this.especialidadSeleccionada.emit(especialidadSeleccionada);
+    this.showForm++;
   }
 
-  especialidades: any = [];
-  usuarios: any = [];
-
-  constructor(private firestore: AngularFirestore, private fb: FormBuilder) {
-    this.filtrarEspecialidades();
-    this.turnoForm = this.fb.group({
-      especialidad: ['', Validators.required],
-      especialista: ['', Validators.required],
-    });
+  onClickEspecialista(especialistaSeleccionado: any) {
+    this.disponibilidad = especialistaSeleccionado.disponibilidad;
+    this.especialistaSeleccionado.emit(especialistaSeleccionado);
+    this.showForm++;
   }
 
   traerEspecialistas() {
@@ -94,14 +102,9 @@ export class SolicitarFormComponent {
     return collection.valueChanges();
   }
 
-  clickElegirDia() {
-    this.showDiaYHorario = !this.showDiaYHorario;
-  }
-
   obtenerDiaYHorario(objDia: any) {
     console.log('Turno seleccionado:', objDia.diaYHorario);
     this.diaYhorario = objDia.diaYHorario;
-    this.showDiaYHorario = false;
     this.fecha = objDia.dia;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { FormatearHoraPipe } from '../../../pipes/formatear-hora.pipe';
 
 type DiaSemana =
   | 'lunes'
@@ -12,7 +13,7 @@ type DiaSemana =
 @Component({
   selector: 'app-dia-yhorario',
   standalone: true,
-  imports: [NgIf, NgFor, CommonModule],
+  imports: [NgIf, NgFor, CommonModule, FormatearHoraPipe],
   templateUrl: './dia-yhorario.component.html',
   styleUrl: './dia-yhorario.component.css',
 })
@@ -20,6 +21,12 @@ export class DiaYHorarioComponent implements OnInit {
   @Output() diaYHorario = new EventEmitter<any>();
 
   proximosDiasConHorarios: { fecha: Date; horarios: string[] }[] = [];
+  diaSeleccionado: { fecha: Date; horarios: string[] } = {
+    fecha: new Date(),
+    horarios: [''],
+  };
+
+  showHorarios: boolean = false;
 
   @Input() disponibilidad: { [key in DiaSemana]: string[] } = {
     lunes: ['08:00', '09:00', '10:00', '11:00', '12:00'],
@@ -33,14 +40,19 @@ export class DiaYHorarioComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    // Supongamos que la disponibilidad del especialista está cargada en el componente
-
-    // Genera los próximos 15 días y filtra la disponibilidad
     const proximosDias = this.generarProximos15Dias();
     this.proximosDiasConHorarios = this.filtrarDisponibilidad(
       proximosDias,
       this.disponibilidad
     );
+  }
+
+  ordenarHorarios() {
+    this.diaSeleccionado.horarios.sort((a: string, b: string) => {
+      const [hourA, minuteA] = a.split(':').map(Number);
+      const [hourB, minuteB] = b.split(':').map(Number);
+      return hourA - hourB || minuteA - minuteB;
+    });
   }
 
   getNombreDia(fecha: Date): DiaSemana {
@@ -53,23 +65,20 @@ export class DiaYHorarioComponent implements OnInit {
       'viernes',
       'sábado',
     ];
-    return dias[fecha.getDay()] as DiaSemana; // Aseguramos que es un valor válido de DiaSemana
+    return dias[fecha.getDay()] as DiaSemana;
   }
 
-  // Función para seleccionar y remover el turno
   seleccionarTurno(dia: Date, horario: string) {
-    const nombreDia = this.getNombreDia(dia); // Convierte la fecha a nombre de día
-    // Verifica si el día existe en el objeto de disponibilidad
+    const nombreDia = this.getNombreDia(dia);
     if (this.disponibilidad[nombreDia]) {
-      // Encuentra el índice del horario en el array correspondiente al día
       const indice = this.disponibilidad[nombreDia].indexOf(horario);
 
       if (indice !== -1) {
         const diaYHorario: { [key in DiaSemana]?: string[] } = {
-          [nombreDia]: [horario], // Usamos el valor de nombreDia como clave
+          [nombreDia]: [horario],
         };
         this.diaYHorario.emit({ diaYHorario: diaYHorario, dia: dia });
-        console.log(diaYHorario);
+        //  console.log(diaYHorario);
       } else {
         console.log(`El turno ${horario} no está disponible en ${nombreDia}.`);
       }
@@ -107,7 +116,6 @@ export class DiaYHorarioComponent implements OnInit {
     return diasConDisponibilidad.filter((dia) => dia !== null);
   }
 
-  // Obtiene el nombre del día de la semana (lunes, martes, etc.)
   private obtenerDiaSemana(fecha: Date): string {
     const diasSemana = [
       'domingo',

@@ -1,45 +1,48 @@
-:host {
-  position: fixed;
-  transform: translate(-60%, 10%);
-  z-index: 9999; /* Asegura que el componente esté por encima de otros elementos */
-  padding: 5px; /* Espaciado dentro del componente */
-  border-radius: 8px; /* Opcional: bordes redondeados */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Opcional: sombra para que se destaque */
-  width: 750px;
-}
-
 .dias-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  max-width: 720px; /* Ancho máximo del contenedor */
+  max-width: 600px; /* Ancho máximo del contenedor */
   max-height: 400px; /* Limita la altura total a dos filas aproximadamente */
   overflow-y: auto; /* Habilita scroll cuando hay más de dos filas */
   background-color: #f865b0;
   padding: 1rem;
   border-radius: 8px;
+  margin: auto;
 }
-
 .dia-card {
-  flex: 1 1 180px;
-  max-width: 180px; /* Ancho máximo para que todas las tarjetas sean iguales */
+  width: 120px;
+  height: 60px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  height: 180px; /* Altura fija para uniformidad */
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-top: 3px solid #007bff;
+  border-radius: 4px;
+  margin: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dia-card:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dia-card h4 {
   margin: 0;
-  font-size: 1rem;
-  color: #333;
-  text-align: center;
+  font-size: 1.2rem;
+  color: #495057;
+}
+
+.dia-card.selected {
+  background-color: #007bff;
+  border-color: #0056b3;
+}
+
+.dia-card.selected h4 {
+  color: white;
 }
 
 .horarios-lista {
@@ -47,13 +50,16 @@
   flex-wrap: wrap;
   gap: 0.25rem;
   justify-content: center;
+  align-items: center;
   max-height: 100px;
   overflow-y: auto;
   padding: 0.5rem;
+  width: 70%;
+  margin: auto;
 }
 
 .horario-btn {
-  width: 60px;
+  width: 80px;
   padding: 0.25rem;
   background-color: #007bff;
   color: #fff;
@@ -72,4 +78,9 @@
 .horario-btn:focus {
   outline: none;
   box-shadow: 0 0 5px #007bff;
+}
+
+.disable {
+  cursor: not-allowed;
+  background-color: gray;
 }

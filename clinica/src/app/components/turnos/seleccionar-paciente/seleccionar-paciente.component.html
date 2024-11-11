@@ -1,0 +1,15 @@
+<div class="titulo">Seleccione un paciente</div>
+<div class="tabla-usuarios">
+  <div
+    class="fila-usuario"
+    *ngFor="let usuario of usuarios"
+    (click)="clickUsuario(usuario)"
+  >
+    <div class="imagen-perfil">
+      <img [src]="usuario.imagen" alt="Imagen de perfil" />
+    </div>
+    <div class="nombre-usuario">
+      <strong>{{ usuario.nombre }} {{ usuario.apellido }}</strong>
+    </div>
+  </div>
+</div>

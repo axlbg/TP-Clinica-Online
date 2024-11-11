@@ -1,11 +1,12 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { PermisoPipe } from '../../../pipes/permiso.pipe';
 
 @Component({
   selector: 'app-especialistas-tabla',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, PermisoPipe],
   templateUrl: './especialistas-tabla.component.html',
   styleUrl: '../tablas.css',
 })

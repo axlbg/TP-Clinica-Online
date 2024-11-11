@@ -17,7 +17,7 @@
     <td>{{ u.dni }}</td>
     <td>{{ u.mail }}</td>
     <td>{{ u.especialidad }}</td>
-    <td>{{ u.acceso }}</td>
+    <td>{{ u.acceso | permiso }}</td>
     <td>
       <button (click)="updateUserAccess(u.userId, !u.acceso)">
         Cambiar acceso

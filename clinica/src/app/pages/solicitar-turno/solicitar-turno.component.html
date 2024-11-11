@@ -1,1 +1,51 @@
-<div class="container"><app-solicitar-form></app-solicitar-form></div>
+<div class="container">
+  <!--  (pacienteSeleccionado == null) -->
+  @if (pacienteSeleccionado == null) {
+  <app-seleccionar-paciente
+    (paciente)="obtenerPaciente($event)"
+  ></app-seleccionar-paciente>
+  } @else { @if(especialidadSeleccionada != ''){
+  <div class="left-section">
+    @if(auth.esAdmin()){
+    <div class="item">
+      <img
+        [src]="pacienteSeleccionado.imagen"
+        [alt]="pacienteSeleccionado"
+        class="imagen"
+      />
+      <p class="nombre">
+        {{ pacienteSeleccionado.nombre }} {{ pacienteSeleccionado.apellido }}
+      </p>
+    </div>
+    }
+    <div class="item">
+      <img
+        [src]="obtenerImg(especialidadSeleccionada)"
+        [alt]="especialidadSeleccionada"
+        class="imagen"
+      />
+      <p class="nombre">{{ especialidadSeleccionada }}</p>
+    </div>
+    @if(especialistaSeleccionado != null){
+    <div class="item">
+      <img
+        [src]="especialistaSeleccionado.imagen"
+        [alt]="especialistaSeleccionado.nombre"
+        class="imagen"
+      />
+      <p class="nombre">
+        {{ especialistaSeleccionado.nombre }}
+        {{ especialistaSeleccionado.apellido }}
+      </p>
+    </div>
+    }
+  </div>
+  }
+  <div class="right-section">
+    <app-solicitar-form
+      (especialidadSeleccionada)="obtenerEspecialidad($event)"
+      (especialistaSeleccionado)="obtenerEspecialista($event)"
+    ></app-solicitar-form>
+  </div>
+  }
+</div>

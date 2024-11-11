@@ -115,7 +115,6 @@ export class DisponibilidadEspecialistaComponent {
     console.log(this.disponibilidad);
     this.user = auth.objUsuario;
     this.disponibilidad = this.user.disponibilidad;
-    // console.log(this.disponibilidad);
   }
 
   clickTurno(dia: DiaSemana, horario: string) {

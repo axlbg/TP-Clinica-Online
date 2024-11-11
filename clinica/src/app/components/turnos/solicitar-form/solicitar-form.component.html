@@ -1,49 +1,40 @@
-<div class="form-container">
-  <form [formGroup]="turnoForm">
-    <!-- Selección de Especialidad -->
-    <label for="especialidad">Especialidad</label>
-    <select
-      id="especialidad"
-      formControlName="especialidad"
-      (change)="onEspecialidadChange()"
+<div [ngSwitch]="showForm">
+  <div *ngSwitchCase="0" class="e-container">
+    <div
+      *ngFor="let especialidad of especialidades"
+      class="item"
+      (click)="onClickEspecialidad(especialidad)"
     >
-      <option
-        *ngFor="let especialidad of especialidades"
-        [value]="especialidad"
-      >
-        {{ especialidad }}
-      </option>
-    </select>
+      <img
+        [src]="obtenerImg(especialidad)"
+        [alt]="especialidad.nombre"
+        class="imagen"
+      />
+      <p class="nombre">{{ especialidad }}</p>
+    </div>
+  </div>
 
-    <label for="especialista">Especialista</label>
-    <select id="especialista" formControlName="especialista">
-      @if (turnoForm.controls['especialidad'].touched){
-      <option
-        *ngFor="let especialista of usuarios"
-        [value]="especialista.userId"
-      >
+  <div *ngSwitchCase="1" class="e-container">
+    <div
+      *ngFor="let especialista of usuarios"
+      class="item"
+      (click)="onClickEspecialista(especialista)"
+    >
+      <img
+        [src]="especialista.imagen"
+        [alt]="especialista.nombre"
+        class="imagen"
+      />
+      <p class="nombre">
         {{ especialista.nombre }} {{ especialista.apellido }}
-      </option>
-      } @else {
-      <option>Seleccione especialidad</option>
-      }
-    </select>
+      </p>
+    </div>
+  </div>
 
-    <!-- Selección de Día -->
-    <label for="dia"
-      >Día@if(diaYhorario!=null){<span>: {{ fecha | date : "fullDate" }}</span
-      >}</label
-    >
-    <button (click)="clickElegirDia()">Elegir día y horario</button>
-    @if(showDiaYHorario){
+  <div *ngSwitchCase="2">
     <app-dia-yhorario
       (diaYHorario)="obtenerDiaYHorario($event)"
       [disponibilidad]="disponibilidad"
     ></app-dia-yhorario>
-    }
-
-    <button type="submit" [disabled]="turnoForm.invalid">
-      Confirmar Turno
-    </button>
-  </form>
+  </div>
 </div>
