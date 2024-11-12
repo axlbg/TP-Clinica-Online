@@ -1,0 +1,37 @@
+.ver-comentario-container {
+  background-color: #fef5f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 30px auto;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  position: relative; /*  */
+  z-index: 1000;
+}
+
+.titulo-comentario {
+  color: #d63384;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.texto-comentario {
+  color: #555;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.acciones button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.acciones button:hover {
+  background-color: #5a6268;
+}

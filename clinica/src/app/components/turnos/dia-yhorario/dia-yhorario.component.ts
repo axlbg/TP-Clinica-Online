@@ -47,6 +47,32 @@ export class DiaYHorarioComponent implements OnInit {
     );
   }
 
+  generarProximos15Dias(): Date[] {
+    const diasDisponibles: Date[] = [];
+    const hoy = new Date();
+
+    for (let i = 1; i < 15; i++) {
+      const fecha = new Date(hoy);
+      fecha.setDate(hoy.getDate() + i);
+      diasDisponibles.push(fecha);
+    }
+
+    return diasDisponibles;
+  }
+  filtrarDisponibilidad(
+    dias: Date[],
+    disponibilidad: any
+  ): { fecha: Date; horarios: string[] }[] {
+    const diasConDisponibilidad = dias.map((dia) => {
+      const diaSemana = this.obtenerDiaSemana(dia); // Obtiene el día de la semana
+      const horarios = disponibilidad[diaSemana.toLowerCase()]; // Filtra según la disponibilidad
+
+      return horarios ? { fecha: dia, horarios } : null;
+    });
+
+    return diasConDisponibilidad.filter((dia) => dia !== null);
+  }
+
   ordenarHorarios() {
     this.diaSeleccionado.horarios.sort((a: string, b: string) => {
       const [hourA, minuteA] = a.split(':').map(Number);
@@ -55,20 +81,8 @@ export class DiaYHorarioComponent implements OnInit {
     });
   }
 
-  getNombreDia(fecha: Date): DiaSemana {
-    const dias = [
-      'domingo',
-      'lunes',
-      'martes',
-      'miércoles',
-      'jueves',
-      'viernes',
-      'sábado',
-    ];
-    return dias[fecha.getDay()] as DiaSemana;
-  }
-
   seleccionarTurno(dia: Date, horario: string) {
+    this.diaYHorario.emit({ dia: dia, hora: horario }); /*
     const nombreDia = this.getNombreDia(dia);
     if (this.disponibilidad[nombreDia]) {
       const indice = this.disponibilidad[nombreDia].indexOf(horario);
@@ -86,35 +100,21 @@ export class DiaYHorarioComponent implements OnInit {
       console.log(
         `El día ${nombreDia} no está registrado en la disponibilidad.`
       );
-    }
+    }*/
   }
-
-  generarProximos15Dias(): Date[] {
-    const diasDisponibles: Date[] = [];
-    const hoy = new Date();
-
-    for (let i = 1; i < 15; i++) {
-      const fecha = new Date(hoy);
-      fecha.setDate(hoy.getDate() + i);
-      diasDisponibles.push(fecha);
-    }
-
-    return diasDisponibles;
-  }
-
-  filtrarDisponibilidad(
-    dias: Date[],
-    disponibilidad: any
-  ): { fecha: Date; horarios: string[] }[] {
-    const diasConDisponibilidad = dias.map((dia) => {
-      const diaSemana = this.obtenerDiaSemana(dia); // Obtiene el día de la semana
-      const horarios = disponibilidad[diaSemana.toLowerCase()]; // Filtra según la disponibilidad
-
-      return horarios ? { fecha: dia, horarios } : null;
-    });
-
-    return diasConDisponibilidad.filter((dia) => dia !== null);
-  }
+  /*
+  getNombreDia(fecha: Date): DiaSemana {
+    const dias = [
+      'domingo',
+      'lunes',
+      'martes',
+      'miércoles',
+      'jueves',
+      'viernes',
+      'sábado',
+    ];
+    return dias[fecha.getDay()] as DiaSemana;
+  }*/
 
   private obtenerDiaSemana(fecha: Date): string {
     const diasSemana = [

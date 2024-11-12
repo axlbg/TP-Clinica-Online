@@ -27,7 +27,6 @@ export class SolicitarFormComponent {
   ];
 
   showForm = 0;
-  diaYhorario = null;
   fecha: any;
   disponibilidad: { [key in DiaSemana]: string[] } = {
     lunes: ['08:00', '09:00', '12:00'],
@@ -42,6 +41,7 @@ export class SolicitarFormComponent {
 
   @Output() especialidadSeleccionada = new EventEmitter<string>();
   @Output() especialistaSeleccionado = new EventEmitter<string>();
+  @Output() objDia = new EventEmitter<any>();
 
   constructor(private firestore: AngularFirestore) {
     this.filtrarEspecialidades();
@@ -103,8 +103,9 @@ export class SolicitarFormComponent {
   }
 
   obtenerDiaYHorario(objDia: any) {
-    console.log('Turno seleccionado:', objDia.diaYHorario);
-    this.diaYhorario = objDia.diaYHorario;
+    console.log('Turno seleccionado:', objDia);
     this.fecha = objDia.dia;
+
+    this.objDia.emit(objDia);
   }
 }

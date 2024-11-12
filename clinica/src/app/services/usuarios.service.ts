@@ -13,4 +13,9 @@ export class UsuariosService {
     );
     return collection.valueChanges();
   }
+
+  traerUsuarioPorId(id: string) {
+    const docRef = this.firestore.doc(`usuarios/${id}`);
+    return docRef.valueChanges();
+  }
 }

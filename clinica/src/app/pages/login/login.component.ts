@@ -38,8 +38,8 @@ export class LoginComponent {
   loginForm: FormGroup;
   isLoading = false;
 
-  isSlideIn = false;
-  menuVisible = false;
+  isSlideIn = true;
+  menuVisible = true;
 
   users = [
     {

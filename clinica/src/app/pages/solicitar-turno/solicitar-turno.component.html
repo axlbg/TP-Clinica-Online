@@ -1,6 +1,5 @@
 <div class="container">
-  <!--  (pacienteSeleccionado == null) -->
-  @if (pacienteSeleccionado == null) {
+  @if (objDia==null) { @if (pacienteSeleccionado == null) {
   <app-seleccionar-paciente
     (paciente)="obtenerPaciente($event)"
   ></app-seleccionar-paciente>
@@ -45,7 +44,10 @@
     <app-solicitar-form
       (especialidadSeleccionada)="obtenerEspecialidad($event)"
       (especialistaSeleccionado)="obtenerEspecialista($event)"
+      (objDia)="obtenerDia($event)"
     ></app-solicitar-form>
   </div>
+  } } @else {
+  <button (click)="confirmar()">CONFIRMAR</button>
   }
 </div>

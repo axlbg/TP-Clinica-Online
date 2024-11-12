@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f6f8; /* Fondo claro */
+  }
+  
+  .tabla-container {
+    width: 100%;
+    overflow-x: auto;
+    margin: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #4f4f4f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  thead {
+    background-color: #f4c2c2; /* Rosa pastel */
+    color: #4f4f4f;
+  }
+  
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+    font-size: 0.9em;
+  }
+  
+  th {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e8a6a6; /* Línea de separación en tono rosado */
+  }
+  
+  tbody tr {
+    transition: background-color 0.3s ease;
+  }
+  
+  tbody tr:hover {
+    background-color: #f9e8e8; /* Rosa muy claro para hover */
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #fdf7f7; /* Fondo claro para filas pares */
+  }
+  
+  td {
+    border-bottom: 1px solid #f3dcdc; /* Borde suave para separar filas */
+  }
+  
+  .btn-accion {
+    padding: 8px 12px;
+    background-color: #e8a6a6; /* Botón en tono rosado */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    font-weight: bold;
+  }
+  
+  .btn-accion:hover {
+    background-color: #d18b8b; /* Color más oscuro para el hover del botón */
+  }
+  
+  .divswitch {
+    display: flex;
+    gap: 15px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sombra oscura */
+    z-index: 999; /* Asegura que se quede encima de todo */
+  }
+  

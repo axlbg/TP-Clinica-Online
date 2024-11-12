@@ -1,0 +1,83 @@
+@if(!turnos){
+<app-loading></app-loading>
+} @else {
+<div class="tabla-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Especialidad</th>
+        <th>Especialista</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let turno of turnos">
+        <td>{{ turno.fecha.toDate() | date : "dd/MM" }}</td>
+        <td>{{ turno.hora }}</td>
+        <td>{{ turno.especialidad }}</td>
+        <td>Dr. {{ turno.especialistaNombre }}</td>
+        <td>{{ turno.estado | capitalizarPrimerLetra }}</td>
+        <td [ngSwitch]="turno.estado">
+          <div *ngSwitchCase="'pendiente'">
+            <button class="btn-accion" (click)="accionCancelar(turno)">
+              Cancelar
+            </button>
+          </div>
+          <div *ngSwitchCase="'finalizado'" class="divswitch">
+            <button class="btn-accion" (click)="accionVerInforme(turno)">
+              Ver Reseña
+            </button>
+            <button class="btn-accion" (click)="accionCompletarEncuesta(turno)">
+              Completar encuesta
+            </button>
+            <button class="btn-accion" (click)="accionCalificarAtencion(turno)">
+              Calificar Atención
+            </button>
+          </div>
+          <div *ngSwitchCase="'aceptado'">
+            <button class="btn-accion" (click)="accionCancelar(turno)">
+              Cancelar
+            </button>
+          </div>
+          <div *ngSwitchCase="'rechazado'">
+            <button class="btn-accion" (click)="accionVerComentario(turno)">
+              Ver Comentario
+            </button>
+          </div>
+          <div *ngSwitchCase="'cancelado'">
+            <button class="btn-accion" (click)="accionVerComentario(turno)">
+              Ver Comentario
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+} @if (showComentarioCancelar){
+<div class="overlay"></div>
+<app-comentario
+  [titulo]="'Deja un comentario del por qué se cancela el turno'"
+  (salir)="ocultarTodo()"
+  (comentarioEnviado)="enviarComentarioCancelar($event)"
+></app-comentario>
+} @else if (showVerComentario) {
+<div class="overlay"></div>
+<app-ver-comentario
+  [comentario]="comentarioAMostrar"
+  [titulo]="'Detalles del Comentario'"
+  (salir)="ocultarTodo()"
+>
+</app-ver-comentario>
+} @else if (showVerInforme) {
+<div class="overlay"></div>
+<app-ver-comentario
+  [comentario]="comentarioAMostrar"
+  [titulo]="'Reseña:'"
+  (salir)="ocultarTodo()"
+>
+</app-ver-comentario>
+}

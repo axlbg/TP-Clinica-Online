@@ -1,1 +1,12 @@
-<p>mis-turnos works!</p>
+<div [ngSwitch]="auth.tipoDeUsuario">
+  <div *ngSwitchCase="'paciente'">
+    <app-listado-turnos-paciente
+      [turnos]="listaDeTurnos"
+    ></app-listado-turnos-paciente>
+  </div>
+  <div *ngSwitchCase="'especialista'">
+    <app-listado-turnos-especialista
+      [turnos]="listaDeTurnos"
+    ></app-listado-turnos-especialista>
+  </div>
+</div>

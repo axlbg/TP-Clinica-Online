@@ -1,0 +1,12 @@
+<div class="comentario-container">
+  <h3 class="titulo-comentario">{{ titulo }}</h3>
+  <textarea
+    [(ngModel)]="comentario"
+    rows="4"
+    placeholder="Escribe tu comentario..."
+  ></textarea>
+  <div class="acciones">
+    <button (click)="enviarComentario()">Enviar</button>
+    <button (click)="salirSinComentar()">Salir sin comentar</button>
+  </div>
+</div>

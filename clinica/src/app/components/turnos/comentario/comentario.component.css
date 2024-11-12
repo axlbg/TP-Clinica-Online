@@ -1,0 +1,93 @@
+.comentario-container {
+  background-color: #fef5f7;
+  padding: 5px 20px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 30px auto;
+  font-family: "Arial", sans-serif;
+  overflow: hidden; /* Evita que los elementos salgan del contenedor */
+  position: relative; /* */
+  z-index: 1000;
+}
+
+.titulo-comentario {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f27b7b; /* Rosa para el título */
+  margin-bottom: 20px; /* Separación entre el título y el textarea */
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  background-color: #fff;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+  transition: border-color 0.3s ease-in-out;
+  margin-bottom: 15px; /* Añadir espacio debajo del textarea */
+}
+
+textarea:focus {
+  border-color: #f27b7b;
+  outline: none;
+}
+
+.acciones {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 48%; /* Hacer que los botones ocupen el mismo tamaño */
+}
+
+button:focus {
+  outline: none;
+}
+
+button:nth-child(1) {
+  /* Enviar */
+  background-color: #f27b7b;
+  color: white;
+}
+
+button:nth-child(1):hover {
+  background-color: #e06262;
+  transform: scale(1.05);
+}
+
+button:nth-child(1):disabled {
+  background-color: #f7d6d7;
+  cursor: not-allowed;
+}
+
+button:nth-child(2) {
+  /* Salir sin comentar */
+  background-color: #d1d1d1;
+  color: white;
+}
+
+button:nth-child(2):hover {
+  background-color: #a8a8a8;
+  transform: scale(1.05);
+}
+
+button:nth-child(2):disabled {
+  background-color: #e2e2e2;
+  cursor: not-allowed;
+}
+
+textarea::placeholder {
+  color: #9a9a9a;
+}

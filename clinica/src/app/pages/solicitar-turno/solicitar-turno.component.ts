@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Host } from '@angular/core';
 import { SolicitarFormComponent } from '../../components/turnos/solicitar-form/solicitar-form.component';
 import { AutentificadorService } from '../../services/autentificador.service';
 import { SeleccionarPacienteComponent } from '../../components/turnos/seleccionar-paciente/seleccionar-paciente.component';
+import { TurnoService } from '../../services/turno.service';
 
 @Component({
   selector: 'app-solicitar-turno',
@@ -13,6 +14,7 @@ import { SeleccionarPacienteComponent } from '../../components/turnos/selecciona
 export class SolicitarTurnoComponent {
   especialidadSeleccionada: string = '';
   especialistaSeleccionado: any = null;
+  objDia: any = null;
   especialidadesDefault = [
     'Neurólogo',
     'Cardiólogo',
@@ -21,7 +23,10 @@ export class SolicitarTurnoComponent {
   ];
   pacienteSeleccionado: any = null;
 
-  constructor(protected auth: AutentificadorService) {
+  constructor(
+    protected auth: AutentificadorService,
+    protected turnos: TurnoService
+  ) {
     if (!auth.esAdmin()) this.pacienteSeleccionado = auth.objUsuario;
   }
 
@@ -34,6 +39,9 @@ export class SolicitarTurnoComponent {
   obtenerPaciente(u: any) {
     this.pacienteSeleccionado = u;
   }
+  obtenerDia(objDia: any) {
+    this.objDia = objDia;
+  }
 
   obtenerImg(especialidad: string) {
     let ruta = '/especialidades/';
@@ -41,5 +49,18 @@ export class SolicitarTurnoComponent {
       ruta += especialidad + '.jpg';
     else ruta += 'generico.jpg';
     return ruta;
+  }
+
+  confirmar() {
+    const objTurno = {
+      especialidad: this.especialidadSeleccionada,
+      especialistaId: this.especialistaSeleccionado.userId,
+      especialistaNombre: `${this.especialistaSeleccionado.nombre} ${this.especialistaSeleccionado.apellido}`,
+      pacienteId: this.pacienteSeleccionado.userId,
+      fecha: this.objDia.dia,
+      hora: this.objDia.hora,
+      estado: 'pendiente',
+    };
+    this.turnos.guardarTurno(objTurno);
   }
 }
