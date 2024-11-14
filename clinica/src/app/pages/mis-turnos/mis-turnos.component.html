@@ -1,12 +1,19 @@
+<input
+  type="text"
+  [(ngModel)]="term"
+  placeholder="Buscar por especialidad o especialista"
+  (input)="filtrarTurnos()"
+/>
+
 <div [ngSwitch]="auth.tipoDeUsuario">
   <div *ngSwitchCase="'paciente'">
     <app-listado-turnos-paciente
-      [turnos]="listaDeTurnos"
+      [turnos]="turnosFiltrados"
     ></app-listado-turnos-paciente>
   </div>
   <div *ngSwitchCase="'especialista'">
     <app-listado-turnos-especialista
-      [turnos]="listaDeTurnos"
+      [turnos]="turnosFiltrados"
     ></app-listado-turnos-especialista>
   </div>
 </div>

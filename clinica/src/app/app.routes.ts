@@ -73,4 +73,11 @@ export const routes: Routes = [
         (c) => c.MiPerfilComponent
       ),
   },
+  {
+    path: 'test',
+    loadComponent: () =>
+      import(
+        './components/historia-clinica/cargar-historia-clinica-form/cargar-historia-clinica-form.component'
+      ).then((c) => c.CargarHistoriaClinicaFormComponent),
+  },
 ];

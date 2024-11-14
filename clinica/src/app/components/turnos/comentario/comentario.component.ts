@@ -15,8 +15,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './comentario.component.css',
 })
 export class ComentarioComponent {
-  @Input() titulo: string =
-    'Deja un comentario del por qué se cancela el turno';
+  @Input() titulo: string = 'Deja un comentario';
 
   comentario: string = '';
   @Output() comentarioEnviado: EventEmitter<string> = new EventEmitter();

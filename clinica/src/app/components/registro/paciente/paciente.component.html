@@ -134,6 +134,15 @@
       </small>
     </div>
 
+    <ngx-recaptcha2
+      #captchaElem
+      [siteKey]="siteKey"
+      (success)="handleSuccess($event)"
+      [useGlobalDomain]="false"
+      formControlName="recaptcha"
+    >
+    </ngx-recaptcha2>
+
     <button type="submit" [disabled]="formulario.invalid">Enviar</button>
   </form>
 </div>

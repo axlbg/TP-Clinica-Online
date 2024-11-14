@@ -35,11 +35,11 @@
             </button>
           </div>
           <div *ngSwitchCase="'aceptado'" class="divswitch">
-            <button class="btn-accion" (click)="accionCancelar(turno)">
-              Cancelar
-            </button>
             <button class="btn-accion" (click)="accionFinalizar(turno)">
               Finalizar
+            </button>
+            <button class="btn-accion" (click)="accionCancelar(turno)">
+              Cancelar
             </button>
           </div>
           <div *ngSwitchCase="'rechazado'">
@@ -64,6 +64,14 @@
   (salir)="ocultarTodo()"
   (comentarioEnviado)="enviarComentarioCancelar($event)"
 ></app-comentario>
+
+} @else if (showComentarioRechazar){
+<div class="overlay"></div>
+<app-comentario
+  [titulo]="'Deja un comentario del por qué se rechaza el turno'"
+  (salir)="ocultarTodo()"
+  (comentarioEnviado)="enviarComentarioRechazar($event)"
+></app-comentario>
 } @else if (showVerComentario) {
 <div class="overlay"></div>
 <app-ver-comentario
@@ -80,4 +88,12 @@
   (salir)="ocultarTodo()"
 >
 </app-ver-comentario>
+} @else if (showComentarioFinalizar){
+<div class="overlay"></div>
+<div class="porEncima">
+  <app-cargar-historia-clinica-form
+    (salir)="ocultarTodo()"
+    (enviar)="submitFinalizar($event)"
+  ></app-cargar-historia-clinica-form>
+</div>
 }

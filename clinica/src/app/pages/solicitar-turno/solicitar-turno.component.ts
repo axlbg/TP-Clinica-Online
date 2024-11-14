@@ -56,6 +56,7 @@ export class SolicitarTurnoComponent {
       especialidad: this.especialidadSeleccionada,
       especialistaId: this.especialistaSeleccionado.userId,
       especialistaNombre: `${this.especialistaSeleccionado.nombre} ${this.especialistaSeleccionado.apellido}`,
+      pacienteNombre: this.auth.userName,
       pacienteId: this.pacienteSeleccionado.userId,
       fecha: this.objDia.dia,
       hora: this.objDia.hora,

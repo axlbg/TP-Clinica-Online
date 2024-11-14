@@ -6,6 +6,7 @@ import { EspecialistasTablaComponent } from '../../components/tablas/especialist
 import { PacienteComponent } from '../../components/registro/paciente/paciente.component';
 import { EspecialistaFormComponent } from '../../components/registro/especialista-form/especialista-form.component';
 import { AdminFormComponent } from '../../components/registro/admin-form/admin-form.component';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-usuarios',
@@ -63,5 +64,27 @@ export class UsuariosComponent {
 
   registrar(n: number) {
     this.showCase = n;
+  }
+
+  descargarExcelPacientes() {
+    this.traerUsuarios('paciente').subscribe((pacientes) => {
+      if (pacientes !== null) {
+        const formattedData = pacientes.map((paciente: any) => ({
+          Apellido: paciente.apellido,
+          Nombre: paciente.nombre,
+          Edad: paciente.edad,
+          DNI: paciente.dni,
+          Mail: paciente.mail,
+          'Obra Social': paciente.obraSocial,
+        }));
+
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(formattedData);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(wb, ws, 'Pacientes');
+
+        XLSX.writeFile(wb, 'pacientes.xlsx');
+      }
+    });
   }
 }

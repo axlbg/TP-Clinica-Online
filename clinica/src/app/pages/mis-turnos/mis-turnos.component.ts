@@ -4,6 +4,8 @@ import { TurnoService } from '../../services/turno.service';
 import { AutentificadorService } from '../../services/autentificador.service';
 import { CommonModule, NgSwitch } from '@angular/common';
 import { ListadoTurnosEspecialistaComponent } from '../../components/turnos/listado-turnos-especialista/listado-turnos-especialista.component';
+import { FormsModule } from '@angular/forms';
+import { HistoriaClinicaService } from '../../services/historia-clinica.service';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -13,17 +15,21 @@ import { ListadoTurnosEspecialistaComponent } from '../../components/turnos/list
     NgSwitch,
     CommonModule,
     ListadoTurnosEspecialistaComponent,
+    FormsModule,
   ],
   templateUrl: './mis-turnos.component.html',
   styleUrl: './mis-turnos.component.css',
 })
 export class MisTurnosComponent {
-  listaDeTurnos: any;
   objUsuario: any;
 
+  listaDeTurnos: any[] = [];
+  turnosFiltrados: any[] = [];
+  term: string = '';
   constructor(
     private turnosService: TurnoService,
-    public auth: AutentificadorService
+    public auth: AutentificadorService,
+    protected hcService: HistoriaClinicaService
   ) {
     this.objUsuario = auth.objUsuario;
 
@@ -36,6 +42,7 @@ export class MisTurnosComponent {
     this.turnosService.traerTurnosPorPaciente(this.objUsuario.userId).subscribe(
       (data) => {
         this.listaDeTurnos = data;
+        this.turnosFiltrados = this.listaDeTurnos;
       },
       (error) => {
         console.error('Error al obtener los turnos:', error);
@@ -49,10 +56,26 @@ export class MisTurnosComponent {
       .subscribe(
         (data) => {
           this.listaDeTurnos = data;
+          this.turnosFiltrados = this.listaDeTurnos;
         },
         (error) => {
           console.error('Error al obtener los turnos:', error);
         }
       );
+  }
+
+  filtrarTurnos() {
+    const searchTerm = this.term.toLowerCase().trim();
+    if (searchTerm) {
+      this.turnosFiltrados = this.listaDeTurnos.filter(
+        (turno: any) =>
+          (turno.especialidad &&
+            turno.especialidad.toLowerCase().includes(searchTerm)) ||
+          (turno.especialistaNombre &&
+            turno.especialistaNombre.toLowerCase().includes(searchTerm))
+      );
+    } else {
+      this.turnosFiltrados = this.listaDeTurnos;
+    }
   }
 }

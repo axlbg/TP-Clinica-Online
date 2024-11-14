@@ -13,11 +13,17 @@ import { NotificacionService } from '../../../services/notificacion.service';
 import { StorageService } from '../../../services/storage.service';
 import { LoadingComponent } from '../../loading/loading.component';
 import { Router } from '@angular/router';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-especialista-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, LoadingComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    LoadingComponent,
+    NgxCaptchaModule,
+  ],
   templateUrl: './especialista-form.component.html',
   styleUrl: '../style.css',
 })
@@ -26,6 +32,7 @@ export class EspecialistaFormComponent {
   especialidades = ['Cardiólogo', 'Neurólogo', 'Hematólogo', 'Odontólogo'];
   imagen: any;
   isLoading = false;
+  siteKey = '6LffCX4qAAAAAOtQjENNNT_MRJY3jr1FOAMGl0_T';
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +51,12 @@ export class EspecialistaFormComponent {
       mail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       imagenPerfil: [null, [Validators.required, this.fileValidator()]],
+      recaptcha: ['', Validators.required],
     });
+  }
+
+  handleSuccess($event: string) {
+    console.log($event);
   }
 
   fileValidator(): (control: AbstractControl) => ValidationErrors | null {

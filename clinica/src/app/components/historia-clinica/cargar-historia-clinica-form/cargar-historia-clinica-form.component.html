@@ -1,0 +1,53 @@
+<div class="form-container">
+  <form [formGroup]="datosForm" (ngSubmit)="onSubmit()">
+    <label>Reseña o comentario:</label>
+    <input formControlName="comentario" type="text" required />
+
+    <label>Altura:</label>
+    <input formControlName="altura" type="text" required />
+
+    <label>Peso:</label>
+    <input formControlName="peso" type="text" required />
+
+    <label>Temperatura:</label>
+    <input formControlName="temperatura" type="text" required />
+
+    <label>Presión:</label>
+    <input formControlName="presion" type="text" required />
+
+    <div formArrayName="datosDinamicos">
+      <div
+        *ngFor="let dato of datosDinamicos.controls; let i = index"
+        [formGroupName]="i"
+        class="dynamic-data-container"
+      >
+        <label>Clave:</label>
+        <input formControlName="clave" type="text" required />
+
+        <label>Valor:</label>
+        <input formControlName="valor" type="text" required />
+
+        <button
+          type="button"
+          class="delete-button"
+          (click)="eliminarDatoDinamico(i)"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      (click)="agregarDatoDinamico()"
+      [disabled]="datosDinamicos.length >= 3"
+    >
+      Agregar dato
+    </button>
+
+    <div class="acciones">
+      <button type="submit" [disabled]="datosForm.invalid">Enviar</button>
+      <button type="button" (click)="salirSinCompletar()">Salir</button>
+    </div>
+  </form>
+</div>

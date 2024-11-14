@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { CapitalizarPrimerLetraPipe } from '../../../pipes/capitalizar-primer-letra.pipe';
 import { AutentificadorService } from '../../../services/autentificador.service';
 import { ThisReceiver } from '@angular/compiler';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { TablaHistoriaClinicaComponent } from '../../historia-clinica/tabla-historia-clinica/tabla-historia-clinica.component';
 
 type DiaSemana =
   | 'lunes'
@@ -111,7 +113,10 @@ export class DisponibilidadEspecialistaComponent {
 
   user: any = {};
 
-  constructor(private auth: AutentificadorService) {
+  constructor(
+    private auth: AutentificadorService,
+    protected usuariosService: UsuariosService
+  ) {
     console.log(this.disponibilidad);
     this.user = auth.objUsuario;
     this.disponibilidad = this.user.disponibilidad;
@@ -128,5 +133,15 @@ export class DisponibilidadEspecialistaComponent {
   }
   estaSeleccionado(dia: DiaSemana, horario: string) {
     return this.disponibilidad[dia].includes(horario);
+  }
+
+  clickActualizar() {
+    this.usuariosService
+      .actualizarDisponibilidadHoraria(
+        this.auth.obtenerId(),
+        this.disponibilidad
+      )
+      .then(() => console.log('Actualizado correctamente'))
+      .catch((error) => console.error('Error al actualizar:', error));
   }
 }

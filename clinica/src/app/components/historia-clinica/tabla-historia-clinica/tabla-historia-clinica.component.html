@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Especialidad</th>
+      <th>Especialista</th>
+      <th>Altura</th>
+      <th>Caries</th>
+      <th>Peso</th>
+      <th>Presión</th>
+      <th>Temperatura</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hc of historiaClinica">
+      <td>{{ hc.fecha.toDate() | date : "dd/MM" }}</td>
+      <td>{{ hc.especialidad }}</td>
+      <td>{{ hc.especialista }}</td>
+      <td>{{ hc.altura }}</td>
+      <td>{{ hc.caries }}</td>
+      <td>{{ hc.peso }}</td>
+      <td>{{ hc.presion }}</td>
+      <td>{{ hc.temperatura }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -13,17 +13,19 @@ import { NgIf } from '@angular/common';
 import { LoadingComponent } from '../../loading/loading.component';
 import { Router } from '@angular/router';
 import { StorageService } from '../../../services/storage.service';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-paciente-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, LoadingComponent],
+  imports: [ReactiveFormsModule, NgIf, LoadingComponent, NgxCaptchaModule],
   templateUrl: './paciente.component.html',
   styleUrl: '../style.css',
 })
 export class PacienteComponent {
   formulario: FormGroup;
   isLoading = false;
+  siteKey = '6LffCX4qAAAAAOtQjENNNT_MRJY3jr1FOAMGl0_T';
 
   @Output() nuevoPaciente = new EventEmitter<Object>();
 
@@ -44,6 +46,7 @@ export class PacienteComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       imagenPerfil1: [null, [Validators.required, this.fileValidator()]],
       imagenPerfil2: [null, [Validators.required, this.fileValidator()]],
+      recaptcha: ['', Validators.required],
     });
   }
 
@@ -153,5 +156,9 @@ export class PacienteComponent {
     if (input?.files?.[0]) {
       this.formulario.patchValue({ imagenPerfil2: input.files[0] });
     }
+  }
+
+  handleSuccess($event: string) {
+    console.log($event);
   }
 }

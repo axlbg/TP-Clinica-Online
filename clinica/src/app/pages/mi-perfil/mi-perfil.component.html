@@ -1,16 +1,23 @@
 <div class="container">
   <div class="perfil-card">
-    <!-- Tipo de usuario centrado en la parte superior -->
     <div class="perfil-tipo-usuario">
       {{ user.tipo | capitalizarPrimerLetra }}
     </div>
 
-    <!-- Línea divisora -->
     <hr class="perfil-divider" />
 
-    <!-- Imagen de perfil y datos de usuario -->
     <div class="perfil-content">
+      @if (user.tipo=='paciente'){
+      <div [@carouselAnimation] class="box inventory">
+        <img
+          [src]="currentImage"
+          alt="Imagen de perfil"
+          class="perfil-imagen"
+        />
+      </div>
+      } @else {
       <img [src]="user.imagen" alt="Imagen de perfil" class="perfil-imagen" />
+      }
       <div class="perfil-info">
         <h3 class="perfil-nombre">{{ user.nombre }} {{ user.apellido }}</h3>
         <p><strong>DNI:</strong> {{ user.dni }}</p>
@@ -18,6 +25,9 @@
         <p><strong>Email:</strong> {{ user.mail }}</p>
         @if(user.tipo=='paciente'){
         <p><strong>Obra Social:</strong> {{ user.obraSocial }}</p>
+        <p class="a" (click)="clickVerHistoriaClinica()">
+          <u>Ver historia clínica</u>
+        </p>
         } @else if (user.tipo=='especialista') {
         <p>
           <strong>Especialidades:</strong>
@@ -34,6 +44,13 @@
     </div>
   </div>
   @if(showHorarios){
-  <app-disponibilidad-especialista></app-disponibilidad-especialista>
+  <div [@bounce]="isBounce ? 'bounce' : 'normal'" class="box player">
+    <app-disponibilidad-especialista></app-disponibilidad-especialista>
+  </div>
   }
 </div>
+
+@if(showHistoriaClinica){<app-tabla-historia-clinica
+  [historiaClinica]="historiaClinica"
+></app-tabla-historia-clinica>
+}

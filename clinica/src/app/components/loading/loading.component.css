@@ -2,14 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Ocupa la pantalla completa, ajusta según necesites */
 }
 
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(0, 0, 0, 0.1); /* Color del borde de fondo */
-  border-top-color: #3498db; /* Color de la animación */
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #db34d3;
   border-radius: 50%;
   animation: spin 1s ease-in-out infinite;
 }

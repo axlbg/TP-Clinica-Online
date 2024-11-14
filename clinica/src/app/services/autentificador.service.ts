@@ -11,7 +11,7 @@ export class AutentificadorService {
   accesoEspecialista = false;
   userName = '';
   emailVerificado = false;
-  objUsuario = {};
+  objUsuario: any = {};
 
   constructor(
     public firebaseAuth: AngularFireAuth,
@@ -163,6 +163,10 @@ export class AutentificadorService {
       return true;
     }
     return false;
+  }
+
+  obtenerId() {
+    return this.objUsuario.userId;
   }
 
   async sendVerificationEmail() {

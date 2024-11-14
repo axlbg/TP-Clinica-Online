@@ -83,3 +83,8 @@ td {
   background-color: rgba(0, 0, 0, 0.5); /* Sombra oscura */
   z-index: 999; /* Asegura que se quede encima de todo */
 }
+
+.porEncima {
+  position: relative; /* */
+  z-index: 1000;
+}
