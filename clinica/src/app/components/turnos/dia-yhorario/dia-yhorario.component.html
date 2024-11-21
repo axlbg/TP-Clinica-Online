@@ -4,7 +4,7 @@
     class="dia-card"
     [class.selected]="diaSeleccionado === dia"
     (click)="diaSeleccionado = dia; showHorarios = true; ordenarHorarios()"
-    [ngClass]="{ disable: dia.horarios.length == 0 }"
+    [appDisableIfEmpty]="dia.horarios"
   >
     <h4>
       {{ dia.fecha | date : "dd/MM" }}

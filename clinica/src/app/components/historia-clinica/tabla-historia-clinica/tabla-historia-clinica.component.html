@@ -35,9 +35,8 @@
     </tr>
   </tbody>
 </table>
-<button *ngIf="descarga" (click)="descargarTablaComoPDF()">
-  Descargar PDF
-</button>
+@if (descarga){
+<button (click)="descargarTablaComoPDF()">Descargar PDF</button>
 <select
   id="especialistaFilter"
   #especialistaSelect
@@ -51,8 +50,7 @@
     {{ especialista }}
   </option>
 </select>
-
-@if (showVerInforme) {
+} @if (showVerInforme) {
 <div class="overlay"></div>
 <app-ver-comentario
   [comentario]="comentarioAMostrar"

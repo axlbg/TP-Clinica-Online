@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormatearHoraPipe } from '../../../pipes/formatear-hora.pipe';
+import { DisableIfEmptyDirective } from '../../../directives/disable-if-empty.directive';
 
 type DiaSemana =
   | 'lunes'
@@ -13,7 +14,13 @@ type DiaSemana =
 @Component({
   selector: 'app-dia-yhorario',
   standalone: true,
-  imports: [NgIf, NgFor, CommonModule, FormatearHoraPipe],
+  imports: [
+    NgIf,
+    NgFor,
+    CommonModule,
+    FormatearHoraPipe,
+    DisableIfEmptyDirective,
+  ],
   templateUrl: './dia-yhorario.component.html',
   styleUrl: './dia-yhorario.component.css',
 })
@@ -25,7 +32,7 @@ export class DiaYHorarioComponent implements OnInit {
     fecha: new Date(),
     horarios: [''],
   };
-  horaSeleccionada:string='';
+  horaSeleccionada: string = '';
 
   showHorarios: boolean = false;
 
