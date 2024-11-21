@@ -4,7 +4,11 @@
     (paciente)="obtenerPaciente($event)"
   ></app-seleccionar-paciente>
   } @else { @if(showLeftSection){
-  <div class="left-section" [@flip]="isFlip ? 'flip' : 'normal'">
+  <div
+    [appCambiarColor]="showConfirmar"
+    class="left-section"
+    [@flip]="isFlip ? 'flip' : 'normal'"
+  >
     @if(auth.esAdmin()){
     <div class="item">
       <img
@@ -49,6 +53,6 @@
   </div>
   }
 </div>
-@if (objDia!=null) {
+@if (showConfirmar) {
 <button class="confirmar-btn" (click)="confirmar()">CONFIRMAR</button>
 }

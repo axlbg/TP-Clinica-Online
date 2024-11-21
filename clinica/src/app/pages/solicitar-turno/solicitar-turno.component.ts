@@ -11,11 +11,16 @@ import {
   trigger,
 } from '@angular/animations';
 import { Router } from '@angular/router';
+import { CambiarColorDirective } from '../../directives/cambiar-color.directive';
 
 @Component({
   selector: 'app-solicitar-turno',
   standalone: true,
-  imports: [SolicitarFormComponent, SeleccionarPacienteComponent],
+  imports: [
+    SolicitarFormComponent,
+    SeleccionarPacienteComponent,
+    CambiarColorDirective,
+  ],
   templateUrl: './solicitar-turno.component.html',
   styleUrl: './solicitar-turno.component.css',
   animations: [
@@ -39,6 +44,7 @@ export class SolicitarTurnoComponent {
   ];
   pacienteSeleccionado: any = null;
   showLeftSection: boolean = false;
+  showConfirmar: boolean = false;
 
   isFlip = false; // Controla 'flip' para voltear el elemento.
 
@@ -63,6 +69,7 @@ export class SolicitarTurnoComponent {
   obtenerDia(objDia: any) {
     this.objDia = objDia;
     this.isFlip = !this.isFlip;
+    this.showConfirmar = true;
   }
 
   obtenerImg(especialidad: string) {

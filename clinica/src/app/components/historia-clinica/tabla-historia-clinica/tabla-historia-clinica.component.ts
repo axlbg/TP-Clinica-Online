@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { VerComentarioComponent } from '../../turnos/ver-comentario/ver-comentario.component';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ZoomDirective } from '../../../directives/zoom.directive';
 
 @Component({
   selector: 'app-tabla-historia-clinica',
   standalone: true,
-  imports: [NgFor, CommonModule, VerComentarioComponent, NgIf],
+  imports: [NgFor, CommonModule, VerComentarioComponent, NgIf, ZoomDirective],
   templateUrl: './tabla-historia-clinica.component.html',
   styleUrl: './tabla-historia-clinica.component.css',
 })

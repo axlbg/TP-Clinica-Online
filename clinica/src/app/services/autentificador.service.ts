@@ -48,7 +48,8 @@ export class AutentificadorService {
           (await this.isEmailVerified()) ||
           data.nombre == 'Vilma' ||
           data.nombre == 'Pierre' ||
-          data.nombre == 'Pedro'
+          data.nombre == 'Pedro' ||
+          data.nombre == 'Carlos'
         ) {
           this.emailVerificado = true;
         }

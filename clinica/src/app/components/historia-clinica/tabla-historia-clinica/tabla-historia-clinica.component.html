@@ -17,14 +17,16 @@
   </thead>
   <tbody>
     <tr *ngFor="let hc of historiaClinica">
-      <td>{{ hc.fecha.toDate() | date : "dd/MM" }}</td>
-      <td>{{ hc.especialidad }}</td>
-      <td>{{ hc.especialista }}</td>
-      <td>{{ hc.altura }}</td>
-      <td>{{ hc.peso }}</td>
-      <td>{{ hc.presion }}</td>
-      <td>{{ hc.temperatura }}</td>
-      <td>
+      <td [appZoom]="1.5">
+        {{ hc.fecha.toDate() | date : "dd/MM" }}
+      </td>
+      <td [appZoom]="1.5">{{ hc.especialidad }}</td>
+      <td [appZoom]="1.5">{{ hc.especialista }}</td>
+      <td [appZoom]="1.5">{{ hc.altura }}</td>
+      <td [appZoom]="1.5">{{ hc.peso }}</td>
+      <td [appZoom]="1.5">{{ hc.presion }}</td>
+      <td [appZoom]="1.5">{{ hc.temperatura }}</td>
+      <td [appZoom]="1.5">
         <div *ngFor="let key of objectKeys(hc)">
           <p *ngIf="!listOfKeys.includes(key)">{{ key }}: {{ hc[key] }}</p>
         </div>
