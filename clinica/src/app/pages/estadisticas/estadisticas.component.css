@@ -12,9 +12,19 @@
   flex-flow: column;
 }
 
+.button {
+  width: 10%;
+  margin: auto;
+}
+
 .grafico {
   width: 30%;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  gap: 10px;
 }
 
 .fechas {

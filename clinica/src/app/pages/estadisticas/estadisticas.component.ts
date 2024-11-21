@@ -13,19 +13,23 @@ import {
   ArcElement,
 } from 'chart.js';
 import { FormsModule } from '@angular/forms';
-import jsPDF from 'jspdf';
+import { TablaLogsComponent } from '../../components/logs/tabla-logs/tabla-logs.component';
+import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TablaLogsComponent],
   templateUrl: './estadisticas.component.html',
   styleUrl: './estadisticas.component.css',
 })
 export class EstadisticasComponent {
   fechaInicio: string = '';
   fechaFin: string = '';
+  showLogs = false;
+  showGraficos = false;
+  showTurnosPorFecha = false;
 
   constructor(protected turnosService: TurnoService) {
     this.obtenerTurnos();
@@ -40,6 +44,14 @@ export class EstadisticasComponent {
       Tooltip,
       Legend
     );
+  }
+
+  verLogs() {
+    this.showLogs = !this.showLogs;
+  }
+
+  verGraficos() {
+    this.showGraficos = !this.showGraficos;
   }
 
   obtenerTurnos(): void {
@@ -217,6 +229,8 @@ export class EstadisticasComponent {
         console.error('Error al obtener los turnos:', error);
       }
     );
+
+    this.showTurnosPorFecha = true;
   }
 
   crearGrafico(
@@ -267,5 +281,19 @@ export class EstadisticasComponent {
         },
       },
     });
+  }
+
+  descargarGraficoEnPDF(name: string): void {
+    const canvas = document.getElementById(name) as HTMLCanvasElement;
+    if (canvas) {
+      html2canvas(canvas).then((canvasElement: any) => {
+        const pdf = new jsPDF.jsPDF();
+
+        const imgData = canvasElement.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', 10, 10, 180, 160);
+
+        pdf.save('grafico.pdf');
+      });
+    }
   }
 }

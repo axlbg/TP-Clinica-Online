@@ -84,7 +84,9 @@ export class MisTurnosComponent {
           (turno.pacienteNombre &&
             turno.pacienteNombre.toLowerCase().includes(searchTerm)) ||
           (turno.historiaClinica &&
-            Object.keys(turno.historiaClinica).includes(searchTerm))
+            Object.keys(turno.historiaClinica).includes(searchTerm)) ||
+          (turno.historiaClinica &&
+            Object.values(turno.historiaClinica).includes(searchTerm))
       );
     } else {
       this.turnosFiltrados = this.listaDeTurnos;

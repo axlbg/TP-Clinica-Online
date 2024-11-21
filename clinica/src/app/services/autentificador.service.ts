@@ -53,10 +53,33 @@ export class AutentificadorService {
         ) {
           this.emailVerificado = true;
         }
+        const userName = data.nombre + ' ' + data.apellido;
         this.estaLogeado = true;
-        this.userName = data.nombre + ' ' + data.apellido;
+        this.userName = userName;
         this.userId = data.userId;
         this.imagen = data.imagen;
+
+        /* -- */
+        const logDoc = this.firestore.collection('logs').doc(); // Crea un nuevo documento en la colección 'logs'
+        const now = new Date(); // Obtén la fecha y hora actual
+        const dia = now.toLocaleDateString(); // Formato de fecha local (ejemplo: '21/11/2024')
+        const hora = now.toLocaleTimeString(); // Formato de hora local (ejemplo: '14:35:07')
+
+        logDoc
+          .set({
+            dia: dia,
+            hora: hora,
+            userId: data.userId,
+            nombre: userName,
+          })
+          .then(() => {
+            //console.log('Log guardado con éxito.');
+          })
+          .catch((error) => {
+            console.error('Error al guardar el log:', error);
+          });
+
+        /* -- */
       }
 
       return userCredential;

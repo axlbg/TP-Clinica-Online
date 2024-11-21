@@ -1,0 +1,21 @@
+<div class="logs-container">
+  <h2>Ingresos al sistema</h2>
+  <button (click)="descargarExcelLogs()">Descargar logs</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Día</th>
+        <th>Hora</th>
+        <th>Usuario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logs">
+        <td [appZoom]="1.3">{{ log.dia }}</td>
+        <td [appZoom]="1.3">{{ log.hora }}</td>
+        <td [appZoom]="1.3">{{ log.nombre }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

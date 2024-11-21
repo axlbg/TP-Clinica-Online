@@ -4,11 +4,19 @@ import { VerComentarioComponent } from '../../turnos/ver-comentario/ver-comentar
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ZoomDirective } from '../../../directives/zoom.directive';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
   selector: 'app-tabla-historia-clinica',
   standalone: true,
-  imports: [NgFor, CommonModule, VerComentarioComponent, NgIf, ZoomDirective],
+  imports: [
+    NgFor,
+    CommonModule,
+    VerComentarioComponent,
+    NgIf,
+    ZoomDirective,
+    LoadingComponent,
+  ],
   templateUrl: './tabla-historia-clinica.component.html',
   styleUrl: './tabla-historia-clinica.component.css',
 })
@@ -65,7 +73,7 @@ export class TablaHistoriaClinicaComponent {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Sol_de_Mayo_Bandera_Argentina.png/1200px-Sol_de_Mayo_Bandera_Argentina.png';
     const fechaEmision = new Date().toLocaleDateString();
 
-    doc.addImage(logo, 'PNG', 10, 10, 22, 22); // Coordenadas (x, y) y tamaño (width, height)
+    doc.addImage(logo, 'PNG', 10, 10, 22, 22);
     doc.setFontSize(10);
 
     const pageHeight = doc.internal.pageSize.height;
@@ -115,6 +123,6 @@ export class TablaHistoriaClinicaComponent {
       startY: 50,
     });
 
-    doc.save('historia_clinica.pdf');
+    doc.save('historia clinica.pdf');
   }
 }

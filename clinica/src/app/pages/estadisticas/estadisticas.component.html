@@ -1,10 +1,22 @@
 <div class="container1">
+  <div class="container1">
+    <button class="button" (click)="verLogs()">Ver Logs</button>
+    @if(showLogs){
+    <div class="container"><app-tabla-logs></app-tabla-logs></div>
+    }
+  </div>
   <div class="container">
     <div class="grafico">
       <canvas id="graficoPorEspecialidad"></canvas>
+      <button (click)="descargarGraficoEnPDF('graficoPorEspecialidad')">
+        Descargar PDF de turnos por especialidad
+      </button>
     </div>
     <div class="grafico">
       <canvas id="graficoPorDia"></canvas>
+      <button (click)="descargarGraficoEnPDF('graficoPorDia')">
+        Descargar PDF de turnos por día
+      </button>
     </div>
   </div>
 
@@ -21,13 +33,20 @@
 
     <button (click)="generarGraficosPorDia()">Generar Gráfico</button>
   </div>
-
+  @if(showTurnosPorFecha){
   <div class="container">
     <div class="grafico">
       <canvas id="graficoPorEspecialista"></canvas>
+      <button (click)="descargarGraficoEnPDF('graficoPorEspecialista')">
+        Descargar PDF de turnos por médico
+      </button>
     </div>
     <div class="grafico">
       <canvas id="graficoFinalizados"></canvas>
+      <button (click)="descargarGraficoEnPDF('graficoFinalizados')">
+        Descargar PDF de turnos finalizados por médico
+      </button>
     </div>
   </div>
+  }
 </div>
