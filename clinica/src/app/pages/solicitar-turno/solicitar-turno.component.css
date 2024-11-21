@@ -60,3 +60,19 @@
   width: 150px;
   height: 100px;
 }
+
+.confirmar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30%;
+  padding: 10px;
+  background-color: #e637bf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 20px;
+}

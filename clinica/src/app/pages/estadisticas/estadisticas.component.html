@@ -1,0 +1,33 @@
+<div class="container1">
+  <div class="container">
+    <div class="grafico">
+      <canvas id="graficoPorEspecialidad"></canvas>
+    </div>
+    <div class="grafico">
+      <canvas id="graficoPorDia"></canvas>
+    </div>
+  </div>
+
+  <div class="fechas">
+    <div>
+      <label for="startDate">Fecha de inicio:</label>
+      <input id="startDate" type="date" [(ngModel)]="fechaInicio" />
+    </div>
+
+    <div>
+      <label for="endDate">Fecha de fin:</label>
+      <input id="endDate" type="date" [(ngModel)]="fechaFin" />
+    </div>
+
+    <button (click)="generarGraficosPorDia()">Generar Gráfico</button>
+  </div>
+
+  <div class="container">
+    <div class="grafico">
+      <canvas id="graficoPorEspecialista"></canvas>
+    </div>
+    <div class="grafico">
+      <canvas id="graficoFinalizados"></canvas>
+    </div>
+  </div>
+</div>

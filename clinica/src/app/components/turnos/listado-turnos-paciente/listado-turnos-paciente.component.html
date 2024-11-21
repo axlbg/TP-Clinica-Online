@@ -80,4 +80,12 @@
   (salir)="ocultarTodo()"
 >
 </app-ver-comentario>
-}
+} @else if (showCalificarAtencion ){
+<div class="overlay"></div>
+<app-ver-comentario
+  [comentario]="comentarioAMostrar"
+  [titulo]="'¿Cómo fue la atención?'"
+  (salir)="ocultarTodo()"
+>
+</app-ver-comentario
+>}

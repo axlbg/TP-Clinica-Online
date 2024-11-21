@@ -5,10 +5,14 @@
       <th>Especialidad</th>
       <th>Especialista</th>
       <th>Altura</th>
-      <th>Caries</th>
       <th>Peso</th>
       <th>Presión</th>
       <th>Temperatura</th>
+      <th>Otros datos</th>
+      @if ( verResenia){
+
+      <th>Reseña</th>
+      }
     </tr>
   </thead>
   <tbody>
@@ -17,10 +21,43 @@
       <td>{{ hc.especialidad }}</td>
       <td>{{ hc.especialista }}</td>
       <td>{{ hc.altura }}</td>
-      <td>{{ hc.caries }}</td>
       <td>{{ hc.peso }}</td>
       <td>{{ hc.presion }}</td>
       <td>{{ hc.temperatura }}</td>
+      <td>
+        <div *ngFor="let key of objectKeys(hc)">
+          <p *ngIf="!listOfKeys.includes(key)">{{ key }}: {{ hc[key] }}</p>
+        </div>
+      </td>
+      @if ( verResenia){
+      <td><button (click)="accionVerInforme(hc.informe)">Ver</button></td>
+      }
     </tr>
   </tbody>
 </table>
+<button *ngIf="descarga" (click)="descargarTablaComoPDF()">
+  Descargar PDF
+</button>
+<select
+  id="especialistaFilter"
+  #especialistaSelect
+  (change)="filtrarPorEspecialista(especialistaSelect.value)"
+>
+  <option value="">Todos</option>
+  <option
+    *ngFor="let especialista of listaEspecialistas()"
+    [value]="especialista"
+  >
+    {{ especialista }}
+  </option>
+</select>
+
+@if (showVerInforme) {
+<div class="overlay"></div>
+<app-ver-comentario
+  [comentario]="comentarioAMostrar"
+  [titulo]="'Reseña:'"
+  (salir)="ocultarTodo()"
+>
+</app-ver-comentario>
+}

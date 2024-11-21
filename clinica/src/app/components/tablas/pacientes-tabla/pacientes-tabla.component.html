@@ -22,14 +22,12 @@
   </tr>
 </table>
 
-@if( showHistoriaClinica){
-
+@if(showHistoriaClinica) {
 <div class="overlay"></div>
-<div class="porEncima">
-  <button (click)="salir()">Volver</button>
+<div class="popup-container">
+  <button class="btn-accion" (click)="salir()">Volver</button>
   <app-tabla-historia-clinica
     [historiaClinica]="historiaClinica"
   ></app-tabla-historia-clinica>
 </div>
-
 }

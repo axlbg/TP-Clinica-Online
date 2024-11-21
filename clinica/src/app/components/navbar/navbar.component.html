@@ -13,22 +13,34 @@
     </ng-container>
 
     <ng-template #logeadoBlock>
-      @if(auth.esAdmin()){
-      <li>
-        <a routerLink="/usuarios">Usuarios</a>
-      </li>
-      <li>
-        <a routerLink="/turnos">Turnos</a>
-      </li>
-      } @else { @if(auth.tipoDeUsuario!='especialista'){
-      <li>
-        <a routerLink="/solicitarturno">Solicitar Turno</a>
-      </li>
-      }
-      <li>
-        <a routerLink="/misturnos">Mis Turnos</a>
-      </li>
-      }
+      <ng-container *ngIf="auth.esAdmin(); else notAdminBlock">
+        <li>
+          <a routerLink="/usuarios">Usuarios</a>
+        </li>
+        <li>
+          <a routerLink="/turnos">Turnos</a>
+        </li>
+        <li>
+          <a routerLink="/solicitarturno">Solicitar Turno</a>
+        </li>
+        <li>
+          <a routerLink="/estadisticas">Estadisticas</a>
+        </li>
+      </ng-container>
+      <ng-template #notAdminBlock>
+        <li>
+          <a routerLink="/misturnos">Mis Turnos</a>
+        </li>
+        @if(auth.tipoDeUsuario=='especialista'){
+        <li>
+          <a routerLink="/pacientes">Mis Pacientes</a>
+        </li>
+        } @else {
+        <li>
+          <a routerLink="/solicitarturno">Solicitar Turno</a>
+        </li>
+        }
+      </ng-template>
       <li>
         <a routerLink="/perfil">Mi Perfil</a>
       </li>

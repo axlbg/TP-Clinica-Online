@@ -1,0 +1,8 @@
+@if(isLoading){ <app-loading></app-loading>} @else {
+<div class="container">
+  <div class="item" *ngFor="let u of usuarios" (click)="clickUsuario(u)">
+    <img [src]="u.imagen" [alt]="u.nombre" class="imagen" />
+    <p class="nombre">{{ u.nombre }} {{ u.apellido }}</p>
+  </div>
+</div>
+}

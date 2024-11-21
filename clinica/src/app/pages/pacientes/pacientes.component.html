@@ -1,0 +1,21 @@
+<div class="container">
+  <div
+    class="item"
+    *ngFor="let u of usuarios"
+    (click)="verHistoriaClinica(u.userId)"
+  >
+    <img [src]="u.imagen" [alt]="u.nombre" class="imagen" />
+    <p class="nombre">
+      {{ u.nombre }}
+    </p>
+  </div>
+</div>
+@if(showHistoriaClinica) {
+<div class="popup-container">
+  <button class="btn-accion" (click)="salir()">Salir</button>
+  <app-tabla-historia-clinica
+    [historiaClinica]="historiaClinica"
+    [verResenia]="true"
+  ></app-tabla-historia-clinica>
+</div>
+}

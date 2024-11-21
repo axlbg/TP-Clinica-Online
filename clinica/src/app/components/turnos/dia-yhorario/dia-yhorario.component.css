@@ -61,8 +61,7 @@
 .horario-btn {
   width: 80px;
   padding: 0.25rem;
-  background-color: #007bff;
-  color: #fff;
+  background-color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -72,12 +71,20 @@
 }
 
 .horario-btn:hover {
-  background-color: #0056b3;
+  background-color: #e9ecef;
 }
 
 .horario-btn:focus {
   outline: none;
   box-shadow: 0 0 5px #007bff;
+
+  background-color: #007bff;
+  border-color: #0056b3;
+}
+
+.horario-btn.selected {
+  background-color: #007bff;
+  border-color: #0056b3;
 }
 
 .disable {

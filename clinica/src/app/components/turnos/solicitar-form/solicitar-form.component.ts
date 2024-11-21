@@ -103,7 +103,6 @@ export class SolicitarFormComponent {
   }
 
   obtenerDiaYHorario(objDia: any) {
-    console.log('Turno seleccionado:', objDia);
     this.fecha = objDia.dia;
 
     this.objDia.emit(objDia);

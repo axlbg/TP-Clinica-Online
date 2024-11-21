@@ -25,6 +25,7 @@ export class DiaYHorarioComponent implements OnInit {
     fecha: new Date(),
     horarios: [''],
   };
+  horaSeleccionada:string='';
 
   showHorarios: boolean = false;
 

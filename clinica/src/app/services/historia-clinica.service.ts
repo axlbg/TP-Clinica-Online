@@ -18,6 +18,11 @@ export class HistoriaClinicaService {
         (turnos) => {
           let historiaPaciente: any = [];
 
+          turnos.sort(
+            (a: any, b: any) =>
+              a.fecha.toDate().getTime() - b.fecha.toDate().getTime()
+          );
+
           turnos.forEach((t: any) => {
             if (t.historiaClinica) {
               historiaPaciente.push({
@@ -25,6 +30,7 @@ export class HistoriaClinicaService {
                 fecha: t.fecha,
                 especialidad: t.especialidad,
                 especialista: t.especialistaNombre,
+                informe: t.informe,
               });
             }
           });

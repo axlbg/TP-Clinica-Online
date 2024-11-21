@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { StorageService } from './services/storage.service';
+import { slideTopAnimation, slideInAnimation } from './animations';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,16 @@ import { StorageService } from './services/storage.service';
   imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  animations: [slideInAnimation],
 })
 export class AppComponent {
   title = 'clinica';
+
+  constructor(private contexts: ChildrenOutletContexts) {}
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.[
+      'animation'
+    ];
+  }
 }

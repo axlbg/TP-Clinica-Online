@@ -1,5 +1,5 @@
 <div class="container">
-  <button (click)="traerPacientes()">Ver pacientes</button>
+  <button (click)="traerPacientes(); showCase = 0">Ver pacientes</button>
   <button (click)="traerEspecialistas()">Ver especialistas</button>
   <button (click)="traerAdmin()">Ver administradores</button>
   <button (click)="registrar(3)">Registrar nuevo paciente</button>
@@ -8,16 +8,21 @@
   <button (click)="descargarExcelPacientes()">
     Descargar Excel de pacientes
   </button>
+  <button (click)="usuariosTurnos()">USUARIOS (turnos)</button>
 </div>
 
 @switch (showCase) {@case(0) {
 <app-pacientes-tabla [usuarios]="usuarios"></app-pacientes-tabla>
-} @case (1) {
+} @case(1){
 <app-especialistas-tabla [usuarios]="usuarios"></app-especialistas-tabla>
-} @case (2) {
+} @case(2){
 <app-admin-tabla [usuarios]="usuarios"></app-admin-tabla>
 } @case(3){
 <app-paciente-form></app-paciente-form>
 } @case(4){
 <app-especialista-form></app-especialista-form>
-} @case(5){<app-admin-form></app-admin-form>}}
+} @case(5){
+<app-admin-form></app-admin-form>
+} @case(6){
+<app-usuarios-turnos [usuarios]="usuarios"></app-usuarios-turnos>
+} }

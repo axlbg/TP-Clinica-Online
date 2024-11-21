@@ -5,10 +5,8 @@ import { logeadoGuard } from './guards/logeado.guard';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./pages/bienvenida/bienvenida.component').then(
-        (c) => c.BienvenidaComponent
-      ),
+    pathMatch: 'full',
+    redirectTo: 'home',
   },
   {
     path: 'bienvenida',
@@ -16,6 +14,7 @@ export const routes: Routes = [
       import('./pages/bienvenida/bienvenida.component').then(
         (c) => c.BienvenidaComponent
       ),
+    data: { animation: 'Bienvenida' },
   },
   {
     path: 'home',
@@ -23,12 +22,14 @@ export const routes: Routes = [
       import('./pages/bienvenida/bienvenida.component').then(
         (c) => c.BienvenidaComponent
       ),
+    data: { animation: 'Home' },
   },
   {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.component').then((c) => c.LoginComponent),
     canActivate: [logeadoGuard],
+    data: { animation: 'Login' },
   },
   {
     path: 'registro',
@@ -37,6 +38,7 @@ export const routes: Routes = [
         (c) => c.RegistroComponent
       ),
     canActivate: [logeadoGuard],
+    data: { animation: 'Registro' },
   },
   {
     path: 'usuarios',
@@ -45,6 +47,7 @@ export const routes: Routes = [
         (c) => c.UsuariosComponent
       ),
     canActivate: [adminguardGuard],
+    data: { animation: 'Usuarios' },
   },
   {
     path: 'misturnos',
@@ -52,12 +55,14 @@ export const routes: Routes = [
       import('./pages/mis-turnos/mis-turnos.component').then(
         (c) => c.MisTurnosComponent
       ),
+    data: { animation: 'MisTurnos' },
   },
   {
     path: 'turnos',
     loadComponent: () =>
       import('./pages/turnos/turnos.component').then((c) => c.TurnosComponent),
     canActivate: [adminguardGuard],
+    data: { animation: 'Turnos' },
   },
   {
     path: 'solicitarturno',
@@ -65,6 +70,7 @@ export const routes: Routes = [
       import('./pages/solicitar-turno/solicitar-turno.component').then(
         (c) => c.SolicitarTurnoComponent
       ),
+    data: { animation: 'SolicitarTurno' },
   },
   {
     path: 'perfil',
@@ -72,12 +78,22 @@ export const routes: Routes = [
       import('./pages/mi-perfil/mi-perfil.component').then(
         (c) => c.MiPerfilComponent
       ),
+    data: { animation: 'Perfil' },
   },
   {
-    path: 'test',
+    path: 'pacientes',
     loadComponent: () =>
-      import(
-        './components/historia-clinica/cargar-historia-clinica-form/cargar-historia-clinica-form.component'
-      ).then((c) => c.CargarHistoriaClinicaFormComponent),
+      import('./pages/pacientes/pacientes.component').then(
+        (c) => c.PacientesComponent
+      ),
+    data: { animation: 'Pacientes' },
+  },
+  {
+    path: 'estadisticas',
+    loadComponent: () =>
+      import('./pages/estadisticas/estadisticas.component').then(
+        (c) => c.EstadisticasComponent
+      ),
+    data: { animation: 'Estadisticas' },
   },
 ];

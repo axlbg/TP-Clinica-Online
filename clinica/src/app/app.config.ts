@@ -57,3 +57,17 @@ export const appConfig: ApplicationConfig = {
 - Una vez seleccionado el profesional, aparecerán los días con turnos disponibles para ese PROFESIONAL. Estos botones deben ser rectangulares. Formato (09/09).
  - Seleccionado el día mostrará los horarios disponibles. Estos botones deben ser rectangulares. Formato 12:15am,.
  */
+
+/*
+ Sección Pacientes,	"Para los especialistas. Solo deberá mostrar los usuarios que el
+especialista haya atendido al menos 1 vez."	Mostrar los usuarios con un favbutton redondo , imagen y nombre, 
+al seleccionar un paciente  se muestra los dellaes de los turnos y un acceso a la reseña  de cada consulta
+
+Sección usuarios	"Solamente para el perfil Administrador, un excel con los datos de los
+usuarios."	Mostrar los usuarios con un favbutton redondo , imagen y nombre.Al seleccionarlo descarga los datos de que turnos tomo y con quien
+Agustin friadenrich
+
+Mi perfil	"Para los usuarios paciente, un pdf con la historia clínica. El PDF tiene que tener
+logo de la clínica, título del informe y fecha de emisión."	Poder bajar Todas las atenciones que realice segun un PROFESIONAL
+Animaciones	"Se debe agregar al menos 2, como mínimo, animaciones de transición entre componentes al navegar
+la aplicación."	Una debe ser de desde arriba hacia abajo*/

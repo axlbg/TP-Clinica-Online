@@ -27,6 +27,7 @@ export class ListadoTurnosPacienteComponent {
   showComentarioCancelar: boolean = false;
   showVerComentario: boolean = false;
   showVerInforme: boolean = false;
+  showCalificarAtencion: boolean = false;
 
   turnoACancelar: any;
   comentarioAMostrar: string = '';
@@ -41,13 +42,15 @@ export class ListadoTurnosPacienteComponent {
     this.comentarioAMostrar = turno.comentario;
     this.showVerComentario = true;
   }
-
-  accionCalificarAtencion(turno: any) {}
-  accionCompletarEncuesta(turno: any) {}
   accionVerInforme(turno: any) {
     this.comentarioAMostrar = turno.comentario;
     this.showVerInforme = true;
   }
+  accionCalificarAtencion(turno: any) {
+    this.comentarioAMostrar = turno.comentario;
+    this.showCalificarAtencion = true;
+  }
+  accionCompletarEncuesta(turno: any) {}
 
   modificarTurno(turnoId: string, data: any): void {
     this.turnosService
@@ -64,6 +67,7 @@ export class ListadoTurnosPacienteComponent {
     this.showComentarioCancelar = false;
     this.showVerComentario = false;
     this.showVerInforme = false;
+    this.showCalificarAtencion = false;
   }
   enviarComentarioCancelar(comentario: string) {
     this.turnoACancelar.comentario = comentario;

@@ -1,10 +1,10 @@
 <div class="container">
-  @if (objDia==null) { @if (pacienteSeleccionado == null) {
+  @if (pacienteSeleccionado == null) {
   <app-seleccionar-paciente
     (paciente)="obtenerPaciente($event)"
   ></app-seleccionar-paciente>
-  } @else { @if(especialidadSeleccionada != ''){
-  <div class="left-section">
+  } @else { @if(showLeftSection){
+  <div class="left-section" [@flip]="isFlip ? 'flip' : 'normal'">
     @if(auth.esAdmin()){
     <div class="item">
       <img
@@ -47,7 +47,8 @@
       (objDia)="obtenerDia($event)"
     ></app-solicitar-form>
   </div>
-  } } @else {
-  <button (click)="confirmar()">CONFIRMAR</button>
   }
 </div>
+@if (objDia!=null) {
+<button class="confirmar-btn" (click)="confirmar()">CONFIRMAR</button>
+}

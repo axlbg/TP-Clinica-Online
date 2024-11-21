@@ -19,7 +19,11 @@
   <button
     *ngFor="let horario of diaSeleccionado.horarios"
     class="horario-btn"
-    (click)="seleccionarTurno(diaSeleccionado.fecha, horario)"
+    [class.selected]="horaSeleccionada === horario"
+    (click)="
+      horaSeleccionada = horario;
+      seleccionarTurno(diaSeleccionado.fecha, horario)
+    "
   >
     {{ horario | formatearHora }}
   </button>

@@ -39,7 +39,9 @@
   </form>
 </div>
 <div class="fav-container">
-  <button class="fav-btn" (click)="toggleMenu()">fav</button>
+  <button class="fav-btn" (click)="toggleMenu()">
+    <span class="icon">&#9733;</span>
+  </button>
 
   <div [@slideIn]="isSlideIn ? 'show' : 'hide'">
     <div class="user-menu" *ngIf="menuVisible">

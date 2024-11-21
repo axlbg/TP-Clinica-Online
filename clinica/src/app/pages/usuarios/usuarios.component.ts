@@ -7,6 +7,7 @@ import { PacienteComponent } from '../../components/registro/paciente/paciente.c
 import { EspecialistaFormComponent } from '../../components/registro/especialista-form/especialista-form.component';
 import { AdminFormComponent } from '../../components/registro/admin-form/admin-form.component';
 import * as XLSX from 'xlsx';
+import { UsuariosTurnosComponent } from '../../components/admin/usuarios-turnos/usuarios-turnos.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,6 +19,7 @@ import * as XLSX from 'xlsx';
     PacienteComponent,
     EspecialistaFormComponent,
     AdminFormComponent,
+    UsuariosTurnosComponent,
   ],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css',
@@ -34,7 +36,6 @@ export class UsuariosComponent {
         this.usuarios = usuarios;
       }
     });
-    this.showCase = 0;
   }
 
   traerEspecialistas() {
@@ -64,6 +65,11 @@ export class UsuariosComponent {
 
   registrar(n: number) {
     this.showCase = n;
+  }
+
+  usuariosTurnos() {
+    this.traerPacientes();
+    this.showCase = 6;
   }
 
   descargarExcelPacientes() {

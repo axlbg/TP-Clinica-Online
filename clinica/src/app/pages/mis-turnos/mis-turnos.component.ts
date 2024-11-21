@@ -42,6 +42,10 @@ export class MisTurnosComponent {
     this.turnosService.traerTurnosPorPaciente(this.objUsuario.userId).subscribe(
       (data) => {
         this.listaDeTurnos = data;
+        this.listaDeTurnos.sort(
+          (a: any, b: any) =>
+            a.fecha.toDate().getTime() - b.fecha.toDate().getTime()
+        );
         this.turnosFiltrados = this.listaDeTurnos;
       },
       (error) => {
@@ -56,6 +60,10 @@ export class MisTurnosComponent {
       .subscribe(
         (data) => {
           this.listaDeTurnos = data;
+          this.listaDeTurnos.sort(
+            (a: any, b: any) =>
+              a.fecha.toDate().getTime() - b.fecha.toDate().getTime()
+          );
           this.turnosFiltrados = this.listaDeTurnos;
         },
         (error) => {
@@ -72,7 +80,11 @@ export class MisTurnosComponent {
           (turno.especialidad &&
             turno.especialidad.toLowerCase().includes(searchTerm)) ||
           (turno.especialistaNombre &&
-            turno.especialistaNombre.toLowerCase().includes(searchTerm))
+            turno.especialistaNombre.toLowerCase().includes(searchTerm)) ||
+          (turno.pacienteNombre &&
+            turno.pacienteNombre.toLowerCase().includes(searchTerm)) ||
+          (turno.historiaClinica &&
+            Object.keys(turno.historiaClinica).includes(searchTerm))
       );
     } else {
       this.turnosFiltrados = this.listaDeTurnos;

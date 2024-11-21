@@ -86,12 +86,6 @@ export class ListadoTurnosEspecialistaComponent {
     this.showComentarioRechazar = false;
   }
 
-  /*  enviarComentarioFinalizar(comentario: string, historiaClinica: any) {
-    this.turnoSeleccionado.informe = comentario;
-    this.turnoSeleccionado.estado = 'finalizado';
-    this.modificarTurno(this.turnoSeleccionado.turnoId, this.turnoSeleccionado);
-    this.showComentarioFinalizar = false;
-  }*/
   submitFinalizar(datos: { comentario: string; historiaClinica: any }) {
     this.turnoSeleccionado.informe = datos.comentario;
     this.turnoSeleccionado.historiaClinica = datos.historiaClinica;

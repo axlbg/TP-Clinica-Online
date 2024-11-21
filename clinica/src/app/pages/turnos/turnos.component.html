@@ -1,1 +1,7 @@
-<app-listado-turnos-admin [turnos]="listaDeTurnos"></app-listado-turnos-admin>
+<input
+  type="text"
+  [(ngModel)]="term"
+  placeholder="Buscar por especialidad o especialista"
+  (input)="filtrarTurnos()"
+/>
+<app-listado-turnos-admin [turnos]="turnosFiltrados"></app-listado-turnos-admin>
